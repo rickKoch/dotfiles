@@ -88,19 +88,24 @@ hi VimwikiHeader2 guifg=#C678DD
 hi VimwikiHeader3 guifg=#61AFEF
 
 let g:zettel_format = "%y%m%d%H%M"
-let g:nv_search_paths = ['~/notes/Zettelkasten/']
+let g:nv_search_paths = ['~/code/rickKoch/notes/Zettelkasten/']
 
 let zettel = {}
-let zettel.path = '~/notes/Zettelkasten/'
+let zettel.path = '~/code/rickKoch/notes/Zettelkasten/'
 let zettel.syntax = 'markdown'
 let zettel.ext = '.md'
 
 let work = {}
-let work.path = '~/notes/Work/'
+let work.path = '~/code/rickKoch/notes/Work/'
 let work.syntax = 'markdown'
 let work.ext = '.md'
 
-let g:vimwiki_list = [zettel, work]
+let personal = {}
+let personal.path = '~/code/rickKoch/notes/Personal/'
+let personal.syntax = 'markdown'
+let personal.ext = '.md'
+
+let g:vimwiki_list = [zettel, work, personal]
 
 nnoremap <leader>zn <CMD>ZettelNew<CR>
 nnoremap <leader>zo <CMD>ZettelOpen<CR>
