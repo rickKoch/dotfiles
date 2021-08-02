@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ -e "$HOME/.zshrc" ]; then
+  printf "Found existing .zshrc in your \$HOME directory. Will create a backup at $HOME/.zshrc.bak\n"
+fi
+
+cp -f "$HOME/.zshrc" "$HOME/.zshrc.bak" 2>/dev/null || true
+ln -sf "$PWD/zshrc" "$HOME/.zshrc"

@@ -1,0 +1,92 @@
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.oh-my-zsh
+
+# Theme
+ZSH_THEME="fwalch"
+
+# Go
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export dockerId=rickkoch
+
+# Scripts
+export SCRIPTS=~/.local/bin/scripts
+
+# node version manager
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+# Set $PATH
+path+=($HOME/.local/bin)
+path+=($GOPATH"/bin")
+path+=($GOROOT"/bin")
+path+=($SCRIPTS)
+path+=("/usr/share/code")
+
+path+=($path)
+export PATH
+
+# Plugins
+plugins=(git zsh-syntax-highlighting)
+
+# source oh-my-zsh
+source $ZSH/oh-my-zsh.sh
+#source autocomplete
+
+# Aliases
+#custom aliases
+alias ll="ls -1a";
+alias ..="cd ../";
+alias ..l="cd ../ && ll";
+
+# git aliases
+function gc { git commit -m "$@"; }
+alias gcm="git checkout master";
+alias gs="git status";
+alias gpull="git pull";
+alias gf="git fetch";
+alias gfa="git fetch --all";
+alias gf="git fetch origin";
+alias gpush="git push";
+alias gd="git diff";
+alias ga="git add .";
+alias gb="git branch";
+alias gbr="git branch remote"
+alias gfr="git remote update"
+alias gbn="git checkout -B "
+alias grf="git reflog";
+alias grh="git reset HEAD~" # last commit
+alias gac="git add . && git commit -a -m "
+alias gsu="git gpush --set-upstream origin "
+alias glog="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --branches"
+
+# npm aliases
+alias ni="npm install";
+alias nrs="npm run start -s --";
+alias nrsw="npm run start:watch";
+alias nrb="npm run build -s --";
+alias nrd="npm run dev -s --";
+alias nrt="npm run test -s --";
+alias nrtw="npm run test:watch -s --";
+alias nrv="npm run validate -s --";
+alias rmn="rm -rf node_modules";
+alias flush-npm="rm -rf node_modules && npm i && echo NPM is done";
+
+# docker
+alias dockerstop='docker-compose stop'
+alias dockerrestart='docker-compose restart'
+alias dockerup='docker-compose up -d'
+alias dockerrm='docker-compose rm --all'
+
+# protoc
+alias protocgen='protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative'
+
+# other aliases
+alias zshrc='vim ~/.zshrc'
+alias nvconfig='nvim ~/.config/nvim/init.vim'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias update="source ~/.zshrc"
+alias sshdir="cd ~/.ssh"
+alias nvinit="nvim ~/.config/nvim/init.vim"
+alias nvplug="nvim ~/.config/nvim/plugins.vim"

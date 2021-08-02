@@ -1,0 +1,14 @@
+{
+  "eslint.autoFixOnSave": true,
+  "eslint.format.enable": true,
+  "tslint.autoFixOnSave": true,
+  "coc.preferences.formatOnSaveFiletypes": ["css", "Markdown"],
+  "languageserver": {
+    "go": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod"],
+      "trace.server": "verbose",
+      "filetypes": ["go"]
+    }
+  }
+}
