@@ -22,22 +22,26 @@ export SCRIPTS=~/.local/bin/scripts
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
-# Set $PATH
+# ----------------------- PATH ----------------------
+# prepend
+path=($SCRIPTS $path)
+
+# append
 path+=($HOME/.local/bin)
 path+=($GOPATH"/bin")
 path+=($GOROOT"/bin")
-path+=($SCRIPTS)
 path+=("/usr/share/code")
 
-path+=($path)
 export PATH
 
 # Plugins
-plugins=(git zsh-syntax-highlighting)
+plugins=(git zsh-syntax-highlighting zsh-vi-mode)
 
 # source oh-my-zsh
 source $ZSH/oh-my-zsh.sh
-#source autocomplete
+
+# cursor style for zsh-vi-mode
+ZVM_CURSOR_STYLE_ENABLED=false
 
 # ===================
 # Aliases
@@ -91,9 +95,6 @@ alias egrep='egrep -i --colour=auto'
 alias fgrep='fgrep -i --colour=auto'
 alias curl='curl -L'
 alias ls='ls -h --color=auto'
-alias '?'=duck
-alias '??'=google
-alias '???'=bing
 alias zshrc='vim ~/.zshrc'
 alias nvconfig='nvim ~/.config/nvim/init.vim'
 alias update="source ~/.zshrc"
@@ -117,3 +118,7 @@ alias temp='cd $(mktemp -d)'
 alias view='vi -R' # which is usually linked to vim
 alias c='printf "\e[H\e[2J"'
 alias clear='printf "\e[H\e[2J"'
+alias '?'=duck
+alias '??'=google
+alias '???'=bing
+alias pdf_cli='evince'

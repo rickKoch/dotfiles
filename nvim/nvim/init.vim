@@ -208,7 +208,7 @@ vnoremap > >gv
 
 nmap <Leader>ev :tabedit $MYVIMRC<cr>
 "Add simple highlight removal.
-nmap <C-n> :noh<cr>
+nmap <C-l> :noh<cr>
 
 " nerdtree
 map <M-1> :NERDTreeToggle<CR>
