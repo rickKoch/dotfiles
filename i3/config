@@ -143,7 +143,7 @@ bar {
 
 	# tray_output none|primary|<output>
 	tray_output primary
-	
+
 	# separator between bar sections
 	#separator_symbol " | "
 }
@@ -158,10 +158,12 @@ bindsym $mod+Shift+s sticky toggle
 # floating
 # for_window [class="qTox"] floating enable
 # for_window [class="Pavucontrol"] floating enable
-# for_window [class="Skype"] floating enable
+for_window [class="vlc"] floating enable
+# for_window [class="discord"] floating enable
 
 # default workspaces
 assign [class="vlc"] $workspace10
+assign [class="discord"] $workspace9
 # assign [class="Skype"] $workspace9
 # assign [class="qTox"] $workspace9
 assign [class="Brave-browser"] $workspace1
@@ -192,11 +194,22 @@ bindsym $mod+Shift+b exec brave-browser
 bindsym $mod+Shift+v exec --no-startup-id vlc /home/rick/Music/radio.xspf
 bindsym $mod+Return exec --no-startup-id xfce4-terminal
 bindsym $mod+Shift+q kill
-bindsym Print exec screenshot
+# bindsym $mod+p exec screenshot
 bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 800 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 18"
+
+# Screenshots
+bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date)"
+bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date)"
+bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date)"
+
+## Clipboard Screenshots
+bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
+bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 
 # startup
 exec_always --no-startup-id feh --bg-scale /home/rick/Pictures/wallpaper.jpg
+exec --no-startup-id discord
 # exec_always --no-startup-id xrandr --output HDMI-0 --off --output DVI-I-1 --off --output DVI-I-0 --off --output DVI-I-3 --mode 1920x1080 --pos 0x0 --rotate normal --output DVI-I-2 --mode 1920x1080 --pos 1920x0 --rotate normal
 # exec --no-startup-id spotify
 # exec --no-startup-id skype

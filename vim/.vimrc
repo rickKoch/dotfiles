@@ -53,6 +53,9 @@ match ErrorMsg '\s\+$'
 " enough for line numbers + gutter within 80 standard
 set textwidth=72
 
+set colorcolumn=72
+highlight ColorColumn ctermbg=0 guibg=gray
+
 " replace tabs with spaces automatically
 set expandtab
 

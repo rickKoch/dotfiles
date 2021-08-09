@@ -36,6 +36,9 @@ Plug 'tpope/vim-fugitive'
 " golang
 Plug 'fatih/vim-go'
 
+" floating terminal and lazy stuff
+Plug 'voldikss/vim-floaterm'
+
 " notes
 Plug 'vimwiki/vimwiki'
 Plug 'michal-h21/vim-zettel'
@@ -65,7 +68,7 @@ set expandtab
 set nowrap
 set number
 set noshowmode
-set colorcolumn=81
+set colorcolumn=80
 set ignorecase
 set smartcase
 set clipboard+=unnamedplus
@@ -139,6 +142,15 @@ let g:camelcasemotion_key = '<leader>'
 let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
 let g:NERDTrimTrailingWhitespace = 1
+
+" floaterm
+" nnoremap <leader>bb <CMD>FloatermNew --autoclose=2 --height=0.9 --width=0.9 btm<CR>
+" nnoremap <leader>k9 <CMD>FloatermNew --autoclose=2 --height=0.9 --width=0.9 k9s<CR>
+nnoremap <leader>ld <CMD>FloatermNew --autoclose=2 --height=0.9 --width=0.9 lazydocker<CR>
+nnoremap <leader>lg <CMD>FloatermNew --autoclose=2 --height=0.9 --width=0.9 lazygit<CR>
+" nnoremap <leader>nn <CMD>FloatermNew --autoclose=2 --height=0.5 --width=0.5 nnn -Hde<CR>
+" nnoremap <leader>tt <CMD>FloatermNew --autoclose=2 --height=0.9 --width=0.9 zsh<CR>
+" nnoremap <leader>tw <CMD>FloatermNew --autoclose=2 --height=0.9 --width=0.9 taskwarrior-tui<CR>
 
 " go
 let g:go_fmt_command = "goimports"
