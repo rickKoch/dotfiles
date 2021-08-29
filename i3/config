@@ -130,7 +130,8 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 
 # bar
 bar {
- 	status_command i3blocks -c /home/rick/.config/i3/i3blocks.conf
+ 	# status_command i3blocks -c /home/rick/.config/i3/i3blocks.conf
+ 	status_command i3status
 	position	top
 	colors {
 		background $bg-color

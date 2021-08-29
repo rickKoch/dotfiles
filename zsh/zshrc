@@ -121,8 +121,8 @@ alias clear='printf "\e[H\e[2J"'
 alias '?'=duck
 alias '??'=google
 alias '???'=bing
-alias pdf_cli='evince'
-alias ws='docker container run --rm -it -h workspace workspace'
+alias pdf_cli='evince &'
+# alias ws='docker container run --rm -it -h workspace workspace'
 
 export PATH=$PATH:/home/rick/.go/bin
 
