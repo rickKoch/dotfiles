@@ -160,11 +160,8 @@ setw -g mode-keys vi
 bind p paste-buffer
 bind C-p choose-buffer
 
-bind-key -T copy-mode-vi 'v' send -X begin-selection
-
 # trigger copy mode by
-# bind -n M-Up copy-mode
-bind -n M-c copy-mode
+bind -n M-Up copy-mode
 
 # Scroll up/down by 1 line, half screen, whole screen
 bind -T copy-mode-vi M-Up              send-keys -X scroll-up
@@ -193,7 +190,7 @@ bind -T copy-mode-vi Y send-keys -X copy-line \;\
     run "tmux save-buffer - | $yank"
 bind-key -T copy-mode-vi D send-keys -X copy-end-of-line \;\
     run "tmux save-buffer - | $yank"
-# bind -T copy-mode-vi C-j send-keys -X copy-pipe-and-cancel "$yank"
+bind -T copy-mode-vi C-j send-keys -X copy-pipe-and-cancel "$yank"
 bind-key -T copy-mode-vi A send-keys -X append-selection-and-cancel \;\
     run "tmux save-buffer - | $yank"
 
@@ -203,7 +200,7 @@ bind -T copy-mode-vi MouseDragEnd1Pane \
     send-keys -X copy-pipe "$yank"
 bind -T copy-mode-vi MouseDown1Pane select-pane \;\
    send-keys -X clear-selection
-
+    
 # iTerm2 works with clipboard out of the box, set-clipboard already set to "external"
 # tmux show-options -g -s set-clipboard
 # set-clipboard on|external
@@ -252,16 +249,13 @@ set -g status-style "fg=$color_status_text,bg=$color_dark"
 
 # window segments in status line
 set -g window-status-separator ""
-# separator_powerline_left=""
-# separator_powerline_right=""
-separator_powerline_left="["
-separator_powerline_right="]"
+separator_powerline_left=""
+separator_powerline_right=""
 
 # setw -g window-status-style "fg=$color_status_text,bg=$color_dark"
 setw -g window-status-format " #I:#W "
 setw -g window-status-current-style "fg=$color_light,bold,bg=$color_main"
-# setw -g window-status-current-format "#[fg=$color_dark,bg=$color_main]$separator_powerline_right#[default] #I:#W# #[fg=$color_main,bg=$color_dark]$separator_powerline_right#[default]"
-setw -g window-status-current-format "#[fg=$color_main,bg=$color_dark]$separator_powerline_left#[default] #I:#W# #[fg=$color_main,bg=$color_dark]$separator_powerline_right#[default]"
+setw -g window-status-current-format "#[fg=$color_dark,bg=$color_main]$separator_powerline_right#[default] #I:#W# #[fg=$color_main,bg=$color_dark]$separator_powerline_right#[default]"
 
 # when window has monitoring notification
 setw -g window-status-activity-style "fg=$color_main"
