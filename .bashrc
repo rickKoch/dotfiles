@@ -18,6 +18,7 @@ export DOTFILES="$HOME/code/$GITUSER/dotfiles"
 # export SNIPPETS="$HOME/code/github.com/$GITUSER/dot/snippets"
 export GHREPOS="$HOME/code/$GITUSER/"
 export HELP_BROWSER=lynx
+export DOCKER_ID=rickkoch
 
 export TERM=xterm-256color
 export HRULEWIDTH=73

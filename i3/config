@@ -156,15 +156,20 @@ gaps outer 5
 # sticky window
 bindsym $mod+Shift+s sticky toggle
 
+# Get WM_CLASS of Window
+# xprop | grep WM_CLASS | awk '{print $4}'
+
 # floating
 # for_window [class="qTox"] floating enable
 # for_window [class="Pavucontrol"] floating enable
 for_window [class="vlc"] floating enable
-# for_window [class="discord"] floating enable
+for_window [class="discord"] floating enable
+for_window [class="ViberPC"] floating enable
 
 # default workspaces
 assign [class="vlc"] $workspace10
 assign [class="discord"] $workspace9
+assign [class="ViberPC"] $workspace9
 # assign [class="Skype"] $workspace9
 # assign [class="qTox"] $workspace9
 assign [class="Brave-browser"] $workspace1
@@ -211,6 +216,8 @@ bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection c
 # startup
 exec_always --no-startup-id feh --bg-scale /home/rick/Pictures/wallpaper.jpg
 exec --no-startup-id discord
+exec --no-startup-id emote
+exec --no-startup-id /opt/viber/Viber
 # exec_always --no-startup-id xrandr --output HDMI-0 --off --output DVI-I-1 --off --output DVI-I-0 --off --output DVI-I-3 --mode 1920x1080 --pos 0x0 --rotate normal --output DVI-I-2 --mode 1920x1080 --pos 1920x0 --rotate normal
 # exec --no-startup-id spotify
 # exec --no-startup-id skype
