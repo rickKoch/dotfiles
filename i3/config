@@ -218,6 +218,7 @@ exec_always --no-startup-id feh --bg-scale /home/rick/Pictures/wallpaper.jpg
 exec --no-startup-id discord
 exec --no-startup-id emote
 exec --no-startup-id /opt/viber/Viber
+exec --no-startup-id picom
 # exec_always --no-startup-id xrandr --output HDMI-0 --off --output DVI-I-1 --off --output DVI-I-0 --off --output DVI-I-3 --mode 1920x1080 --pos 0x0 --rotate normal --output DVI-I-2 --mode 1920x1080 --pos 1920x0 --rotate normal
 # exec --no-startup-id spotify
 # exec --no-startup-id skype

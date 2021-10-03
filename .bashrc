@@ -8,24 +8,30 @@ esac
 #                           (also see envx)
 
 # export GITUSER="$USER"
-# export DOTFILES="$HOME/repos/github.com/$GITUSER/dot"
-# export SNIPPETS="$HOME/repos/github.com/$GITUSER/dot/snippets"
-# export GHREPOS="$HOME/repos/github.com/$GITUSER/"
-# export HELP_BROWSER=lynx
-
 export GITUSER="rickKoch"
-export DOTFILES="$HOME/code/$GITUSER/dotfiles"
-# export SNIPPETS="$HOME/code/github.com/$GITUSER/dot/snippets"
-export GHREPOS="$HOME/code/$GITUSER/"
+export DOTFILES="$HOME/Repos/github.com/$GITUSER/dotfiles"
+export GHREPOS="$HOME/Repos/github.com/$GITUSER/"
 export HELP_BROWSER=lynx
-export DOCKER_ID=rickkoch
-
+export DOCKER_ID="rickkoch"
+export SCRIPTS="$DOTFILES/scripts"
+export DESKTOP="$HOME/Desktop"
+export DOCUMENTS="$HOME/Documents"
+export DOWNLOADS="$HOME/Downloads"
+export TEMPLATES="$HOME/Templates"
+export PUBLIC="$HOME/Public"
+export PRIVATE="$HOME/Private"
+export PICTURES="$HOME/Pictures"
+export MUSIC="$HOME/Music"
+export VIDEOS="$HOME/Videos"
+export PDFS="$DOCUMENTS/PDFS"
+export VIRTUALMACHINES="$HOME/VirtualMachines"
+export WORKSPACES="$HOME/Workspaces" # container home dirs for mounting
+export ZETDIR="$GHREPOS/notes"
 export TERM=xterm-256color
 export HRULEWIDTH=73
 export EDITOR=vi
 export VISUAL=vi
 export EDITOR_PREFIX=vi
-
 export PYTHONDONTWRITEBYTECODE=1
 
 test -d ~/.vim/spell && export VIMSPELL=(~/.vim/spell/*.add)
@@ -47,13 +53,13 @@ if test -x /usr/bin/lesspipe; then
   export LESSCLOSE="/usr/bin/lesspipe %s %s";
 fi
 
-export LESS_TERMCAP_mb="[35m" # magenta
-export LESS_TERMCAP_md="[33m" # yellow
-export LESS_TERMCAP_me="" # "0m"
-export LESS_TERMCAP_se="" # "0m"
-export LESS_TERMCAP_so="[34m" # blue
-export LESS_TERMCAP_ue="" # "0m"
-export LESS_TERMCAP_us="[4m"  # underline
+# export LESS_TERMCAP_mb="[35m" # magenta
+# export LESS_TERMCAP_md="[33m" # yellow
+# export LESS_TERMCAP_me="" # "0m"
+# export LESS_TERMCAP_se="" # "0m"
+# export LESS_TERMCAP_so="[34m" # blue
+# export LESS_TERMCAP_ue="" # "0m"
+# export LESS_TERMCAP_us="[4m"  # underline
 
 # ----------------------------- dircolors ----------------------------
 
@@ -90,7 +96,7 @@ pathprepend() {
 
 # override as needed in .bashrc_{personal,private,work}
 # several utilities depend on SCRIPTS being in a github repo
-export SCRIPTS=~/.local/bin/scripts
+# export SCRIPTS=~/.local/bin/scripts
 mkdir -p "$SCRIPTS" &>/dev/null
 
 # remember last arg will be first in path
@@ -147,74 +153,32 @@ shopt -s histappend
 
 PROMPT_LONG=20
 PROMPT_MAX=95
+PROMPT_AT=@
 
 __ps1() {
-  local P='$'
+  local P='$' dir="${PWD##*/}" B countme short long double\
+    r='\[\e[31m\]' g='\[\e[30m\]' h='\[\e[34m\]' \
+    u='\[\e[33m\]' p='\[\e[33m\]' w='\[\e[35m\]' \
+    b='\[\e[36m\]' x='\[\e[0m\]'
 
-  if test -n "${ZSH_VERSION}"; then
-    local r='%F{red}'
-    local g='%F{black}'
-    local h='%F{blue}'
-    local u='%F{yellow}'
-    local p='%F{yellow}'
-    local w='%F{magenta}'
-    local b='%F{cyan}'
-    local x='%f'
-  else
-    local r='\[\e[31m\]'
-    local g='\[\e[1;35m\]'
-    local h='\[\e[1;34m\]'
-    local u='\[\e[36m\]'
-    local p='\[\e[33m\]'
-    local w='\[\e[35m\]'
-    local b='\[\e[36m\]'
-    local x='\[\e[0m\]'
-  fi
+  [[ $EUID == 0 ]] && P='#' && u=$r && p=$u # root
+  [[ $PWD = / ]] && dir=/
+  [[ $PWD = "$HOME" ]] && dir='~'
 
-  if test "${EUID}" == 0; then
-    P='#'
-    if test -n "${ZSH_VERSION}"; then
-      u='$F{red}'
-    else
-      u=$r
-    fi
-    p=$u
-  fi
+  B=$(git branch --show-current 2>/dev/null)
+  [[ $dir = "$B" ]] && B=.
+  countme="$USER$PROMPT_AT$(hostname):$dir($B)\$ "
 
-  local dir;
-  if test "$PWD" = "$HOME"; then
-    dir='~'
-  else
-    dir="${PWD##*/}"
-    if test "${dir}" = _; then
-      dir=${PWD#*${PWD%/*/_}}
-      dir=${dir#/}
-    elif test "${dir}" = work; then
-      dir=${PWD#*${PWD%/*/work}}
-      dir=${dir#/}
-    fi
-  fi
+  [[ $B = master || $B = main ]] && b="$r"
+  [[ -n "$B" ]] && B="$g($b$B$g)"
 
-  local B=$(git branch --show-current 2>/dev/null)
-  test "$dir" = "$B" && B='.'
-  local countme="$USER@$(hostname):$dir($B)\$ "
+  short="$u\u$g$PROMPT_AT$h\h$g:$w$dir$B$p$P$x "
+  long="$g╔ $u\u$g$PROMPT_AT$h\h$g:$w$dir$B\n$g╚ $p$P$x "
+  double="$g╔ $u\u$g$PROMPT_AT$h\h$g:$w$dir\n$g║ $B\n$g╚ $p$P$x "
 
-  test "$B" = master -o "$B" = main && b=$r
-  test -n "$B" && B="$g($b$B$g)"
-
-  if test -n "${ZSH_VERSION}"; then
-    local short="$u%n$g@$h%m$g:$w$dir$B$p$P$x "
-    local long="$g╔ $u%n$g@%m\h$g:$w$dir$B\n$g╚ $p$P$x "
-    local double="$g╔ $u%n$g@%m\h$g:$w$dir\n$g║ $B\n$g╚ $p$P$x "
-  else
-    local short="$u\u$g@$h\h$g:$w$dir$B$p$P$x "
-    local long="$g╔ $u\u$g@$h\h$g:$w$dir$B\n$g╚ $p$P$x "
-    local double="$g╔ $u\u$g@$h\h$g:$w$dir\n$g║ $B\n$g╚ $p$P$x "
-  fi
-
-  if test ${#countme} -gt "${PROMPT_MAX}"; then
+  if (( ${#countme} > PROMPT_MAX )); then
     PS1="$double"
-  elif test ${#countme} -gt "${PROMPT_LONG}"; then
+  elif (( ${#countme} > PROMPT_LONG )); then
     PS1="$long"
   else
     PS1="$short"

@@ -91,20 +91,20 @@ hi VimwikiHeader2 guifg=#C678DD
 hi VimwikiHeader3 guifg=#61AFEF
 
 let g:zettel_format = "%y%m%d%H%M"
-let g:nv_search_paths = ['~/code/rickKoch/notes/Zettelkasten/']
+let g:nv_search_paths = ['~/Repos/github.com/rickKoch/notes/Zettelkasten/']
 
 let zettel = {}
-let zettel.path = '~/code/rickKoch/notes/Zettelkasten/'
+let zettel.path = '~/Repos/github.com/rickKoch/notes/Zettelkasten/'
 let zettel.syntax = 'markdown'
 let zettel.ext = '.md'
 
 let work = {}
-let work.path = '~/code/rickKoch/notes/Work/'
+let work.path = '~/Repos/github.com/rickKoch/notes/Work/'
 let work.syntax = 'markdown'
 let work.ext = '.md'
 
 let personal = {}
-let personal.path = '~/code/rickKoch/notes/Personal/'
+let personal.path = '~/Repos/github.com/rickKoch/notes/Personal/'
 let personal.syntax = 'markdown'
 let personal.ext = '.md'
 
