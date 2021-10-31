@@ -74,13 +74,43 @@ set smartcase
 set clipboard+=unnamedplus
 set noswapfile
 " set t_Co=256
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set guifont=JetBrains\ Mono\ 13
 
 " mkdir, rmdir, files
 " set nocp
 " filetype plugin on
+
+" enough for line numbers + gutter within 80 standard
+set textwidth=72
+
+" wrap around when searching
+set wrapscan
+
+" Just the defaults, these are changed per filetype by plugins.
+" Most of the utility of all of this has been superceded by the use of
+" modern simplified pandoc for capturing knowledge source instead of
+" arbitrary raw text files.
+
+set fo-=t   " don't auto-wrap text using text width
+set fo+=c   " autowrap comments using textwidth with leader
+set fo-=r   " don't auto-insert comment leader on enter in insert
+set fo-=o   " don't auto-insert comment leader on o/O in normal
+set fo+=q   " allow formatting of comments with gq
+set fo-=w   " don't use trailing whitespace for paragraphs
+set fo-=a   " disable auto-formatting of paragraph changes
+set fo-=n   " don't recognized numbered lists
+set fo+=j   " delete comment prefix when joining
+set fo-=2   " don't use the indent of second paragraph line
+set fo-=v   " don't use broken 'vi-compatible auto-wrapping'
+set fo-=b   " don't use broken 'vi-compatible auto-wrapping'
+set fo+=l   " long lines not broken in insert mode
+set fo+=m   " multi-byte character line break support
+set fo+=M   " don't add space before or after multi-byte char
+set fo-=B   " don't add space between two multi-byte chars
+set fo+=1   " don't break a line after a one-letter word
+
 
 highlight ColorColumn ctermbg=0 guibg=gray
 
@@ -119,6 +149,8 @@ nnoremap <leader>zl <CMD>ZettelGenerateLinks<CR>
 nnoremap <leader>zt <CMD>ZettelGenerateTags<CR>
 nnoremap <leader>zs <CMD>ZettelSearch<CR>
 nnoremap <leader>zy <CMD>ZettelYankName<CR>
+
+autocmd VimLeave * call system("xsel -ib", getreg('+'))
 
 " fugitive git
 autocmd BufReadPost fugitive://* set bufhidden=delete
@@ -186,6 +218,12 @@ au FileType scss set noexpandtab
 au FileType scss set shiftwidth=2
 au FileType scss set softtabstop=2
 au FileType scss set tabstop=2
+
+au FileType js set noexpandtab
+au FileType js set shiftwidth=2
+au FileType js set softtabstop=2
+au FileType js set tabstop=2
+
 
 " nerdcommenter
 let g:NERDSpaceDelims = 1

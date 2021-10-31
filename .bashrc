@@ -248,7 +248,7 @@ envx() {
 
 test -e ~/.env && envx ~/.env 
 
-newcmd() { 
+newcmd() {
   name="$1"
   test -z "$name" && echo "usage: newcmd <name>" && return 1
   test -z "$GHREPOS" && echo "GHREPOS not set" && return 1
