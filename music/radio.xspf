@@ -11,25 +11,39 @@
 			</extension>
 		</track>
 		<track>
-			<location>http://naxidigital-house128.streaming.rs:8000/</location>
-			<title>NAXI HOUSE RADIO</title>
+			<location>http://naxi128.streaming.rs:9150/</location>
+			<title>NAXI RADIO | EX-YU</title>
 			<extension application="http://www.videolan.org/vlc/playlist/0">
 				<vlc:id>1</vlc:id>
 			</extension>
 		</track>
 		<track>
-			<location>http://naxi128.streaming.rs:9150/</location>
-			<title>NAXI RADIO</title>
+			<location>http://62.212.82.197:8000/stream</location>
+			<title>89RAINBOW | ROCK</title>
 			<extension application="http://www.videolan.org/vlc/playlist/0">
 				<vlc:id>2</vlc:id>
+				<vlc:option>network-caching=1000</vlc:option>
 			</extension>
 		</track>
 		<track>
-			<location>http://62.212.82.197:8000/stream</location>
-			<title>89RAINBOW</title>
+			<location>https://strm.radionula.com/classics</location>
+			<title>RADIONULA | Classics | Soul - Funk - Disco - Hip-Hop and all that Jazz</title>
 			<extension application="http://www.videolan.org/vlc/playlist/0">
 				<vlc:id>3</vlc:id>
-				<vlc:option>network-caching=1000</vlc:option>
+			</extension>
+		</track>
+		<track>
+			<location>https://strm.radionula.com/channel2</location>
+			<title>RADIONULA | Channel 2 | Mostly organic Soul - Funk - Disco - Jazz</title>
+			<extension application="http://www.videolan.org/vlc/playlist/0">
+				<vlc:id>4</vlc:id>
+			</extension>
+		</track>
+		<track>
+			<location>https://strm.radionula.com/lounge</location>
+			<title>RADIONULA | Lounge | Dusty, smoky beats to zone out and chill</title>
+			<extension application="http://www.videolan.org/vlc/playlist/0">
+				<vlc:id>5</vlc:id>
 			</extension>
 		</track>
 	</trackList>
