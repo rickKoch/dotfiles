@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for i in {0..255}; do
+  printf "\e[38;5;%dm%d " $i $i
+done
+echo -e "\n"

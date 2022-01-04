@@ -1,0 +1,5 @@
+#!/bin/bash
+# For more info and help
+# wttr.in/:help or https://github.com/chubin/wttr.in
+
+exec curl -L wttr.in/"$*"

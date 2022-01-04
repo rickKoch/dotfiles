@@ -11,52 +11,32 @@
 #
 
 [alias]
-    abort = rebase --abort
-    aliases = "!git config -l | grep ^alias\\. | cut -c 7- | less"
-    amend = commit -a --amend
-
-    # Deletes all branches merged into the specified branch (or the default branch if no branch is specified)
-    bclean = "!f() { DEFAULT=$(git default); git branch --merged ${1-$DEFAULT} | grep -v " ${1-$DEFAULT}$" | xargs git branch -d; }; f"
-
-    # Switches to specified branch (or the dafult branch if no branch is specified), runs git up, then runs bclean.
-    bdone = "!f() { DEFAULT=$(git default); git checkout ${1-$DEFAULT} && git up && git bclean ${1-$DEFAULT}; }; f"
-
-    # Lists all branches including remote branches
-    branches = branch -a
-    browse = !git open
-
-    # Lists the files with the most churn
-    churn = !git --no-pager log --name-only --oneline | grep -v ' ' | sort | uniq -c | sort -nr | head
-    cleanup = clean -xdf -e *.DotSettings* -e s3_keys.ps1
-
-    # Stages every file then creates a commit with specified message
-    cm = !git add -A && git commit -m
-    co = checkout
-    cob = checkout -b
-
-    # Show list of files in a conflict state.
-    conflicts = !git diff --name-only --diff-filter=U
+    aliases = "!git config -l | grep ^alias\\. | cut -c 7- | less"      # List aliases
+    abort = rebase --abort                                              # Abort the rebase
+    amend = commit -a --amend                                           # comit amend
+    branches = branch -a                                                # Lists all branches including remote branches
+    browse = !git open                                                  # Open the repo in browser
+    cm = !git add -A && git commit -m                                   # Stages every file then creates a commit with specified message
+    co = checkout                                                       # Switch branches or restore working tree files
+    cob = checkout -b                                                   # Create a new branch named <new_branch> and start it at <start_point>
+    conflicts = !git diff --name-only --diff-filter=U                   # Show list of files in a conflict state.
     cp = cherry-pick
     default = !git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'
-    delete = branch -d
-
-    # Discard changes to a file
-    discard = checkout --
-    ec = config --global -e
-    find = "!git ls-files | grep -i"
-    graph = log --graph -10 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset• %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
-    grep = grep -Ii
-    hist = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-    history = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-
-    # Shows the commit message and files changed from the latest commit
-    latest = "!git ll -1"
-    lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
-    lost = fsck --lost-found
+    delete = branch -d                                                  # Delete branch
+    discard = checkout --                                               # Discard changes to a file
+    ec = config --global -e                                             # Edit git config in editor
+    find = "!git ls-files | grep -i"                                    # find file by file name
 
     # A better git log.
+    graph = log --graph -10 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset• %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
+    hist = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    history = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
     ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
     ls-subtrees = !"git log | grep git-subtree-dir | awk '{ print $2 }'"
+
+    latest = "!git ls -1"                                               # Shows the commit message and files changed from the latest commit
+    lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+    lost = fsck --lost-found
 
     # Moves a set of commits from the current branch to another
     migrate = "!f(){ DEFAULT=$(git default); CURRENT=$(git symbolic-ref --short HEAD); git checkout -b $1 && git branch --force $CURRENT ${3-$CURRENT@{u}} && git rebase --onto ${2-$DEFAULT} $CURRENT; }; f"
@@ -83,3 +63,13 @@
     up = !git pull --rebase --prune $@ && git submodule update --init --recursive
     wip = commit -am "WIP"
     wipe = "!f() { rev=$(git rev-parse ${1-HEAD}); git add -A && git commit --allow-empty -qm 'WIPE SAVEPOINT' && git reset $rev --hard; }; f"
+
+    # Deletes all branches merged into the specified branch (or the default branch if no branch is specified)
+    # bclean = "!f() { DEFAULT=$(git default); git branch --merged ${1-$DEFAULT} | grep -v " ${1-$DEFAULT}$" | xargs git branch -d; }; f"
+
+    # Switches to specified branch (or the dafult branch if no branch is specified), runs git up, then runs bclean.
+    # bdone = "!f() { DEFAULT=$(git default); git checkout ${1-$DEFAULT} && git up && git bclean ${1-$DEFAULT}; }; f"
+
+    # Lists the files with the most churn
+    # churn = !git --no-pager log --name-only --oneline | grep -v ' ' | sort | uniq -c | sort -nr | head
+    # cleanup = clean -xdf -e *.DotSettings* -e s3_keys.ps1
