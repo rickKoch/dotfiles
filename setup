@@ -2,6 +2,9 @@
 set -e
 
 ln -sf "$PWD/.bashrc" "$HOME/.bashrc"
+ln -sf "$PWD/.bash_functions" "$HOME/.bash_functions"
+ln -sf "$PWD/.bash_aliases" "$HOME/.bash_aliases"
+ln -sf "$PWD/.bash_dockerfunctions" "$HOME/.bash_dockerfunctions"
 # ln -sf "$PWD/.dircolors" "$HOME/.dircolors"
 ln -sf "$PWD/.inputrc" "$HOME/.inputrc"
 ln -sf "$PWD/.profile" "$HOME/.profile"

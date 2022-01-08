@@ -1,7 +1,7 @@
 
 case $- in
 *i*) ;; # interactive
-*) return ;; 
+*) return ;;
 esac
 
 # ----------------------- environment variables ----------------------
@@ -41,10 +41,6 @@ export GOPATH=~/.local/share/go
 export GOBIN=~/.local/bin
 export GOPROXY=direct
 export CGO_ENABLED=0
-
-# node version manager
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 # ------------------------------- pager ------------------------------
 
@@ -121,18 +117,24 @@ pathappend \
 # ------------------------------ cdpath ------------------------------
 
 export CDPATH=.:\
-~/repos/github.com:\
-~/repos/github.com/$GITUSER:\
-~/repos/github.com/$GITUSER/dot:\
-~/repos:\
+~/Repos/github.com:\
+~/Repos/github.com/$GITUSER:\
+~/Repos/github.com/$GITUSER/dot:\
+~/Repos:\
 /media/$USER:\
 ~
 
 # ------------------------ bash shell options ------------------------
 
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
 shopt -s checkwinsize
-shopt -s expand_aliases
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell
 shopt -s globstar
+shopt -s expand_aliases
 shopt -s dotglob
 shopt -s extglob
 #shopt -s nullglob # bug kills completion for some
@@ -147,6 +149,7 @@ export HISTFILESIZE=10000
 set -o vi
 bind -m vi-command 'Control-l: clear-screen'
 bind -m vi-insert 'Control-l: clear-screen'
+# Append to the Bash history file, rather than overwriting it
 shopt -s histappend
 
 # --------------------------- smart prompt ---------------------------
@@ -170,11 +173,11 @@ __ps1() {
   countme="$USER$PROMPT_AT$(hostname):$dir($B)\$ "
 
   [[ $B = master || $B = main ]] && b="$r"
-  [[ -n "$B" ]] && B="$g($b$B$g)"
+  [[ -n "$B" ]] && B="$u($b$B$u)"
 
-  short="$u\u$g$PROMPT_AT$h\h$g:$w$dir$B$p$P$x "
-  long="$g╔ $u\u$g$PROMPT_AT$h\h$g:$w$dir$B\n$g╚ $p$P$x "
-  double="$g╔ $u\u$g$PROMPT_AT$h\h$g:$w$dir\n$g║ $B\n$g╚ $p$P$x "
+  short="$u\u$u$PROMPT_AT$h\h$u:$w$dir$B$p$P$x "
+  long="$u╔ $u\u$u$PROMPT_AT$h\h$u:$w$dir$B\n$u╚ $p$P$x "
+  double="$u╔ $u\u$u$PROMPT_AT$h\h$u:$w$dir\n$u║ $B\n$u╚ $p$P$x "
 
   if (( ${#countme} > PROMPT_MAX )); then
     PS1="$double"
@@ -198,33 +201,37 @@ alias grep='grep -i --colour=auto'
 alias egrep='egrep -i --colour=auto'
 alias fgrep='fgrep -i --colour=auto'
 alias curl='curl -L'
-alias ls='ls -h --color=auto'
+alias free='free -h'
+alias df='df -h'
+alias sl="sl -e"
 alias '?'=duck
 alias '??'=google
 alias '???'=bing
 alias x="exit"
-alias sl="sl -e"
 alias mkdirisosec='d=$(isosec);mkdir $d; cd $d'
 alias main='cd $(work main)'
 alias dot='cd $DOTFILES'
 alias scripts='cd $SCRIPTS'
-alias free='free -h'
-alias df='df -h'
 alias top=htop
 alias chmox='chmod +x'
 alias sshh='sshpass -f $HOME/.sshpass ssh '
-alias temp='cd $(mktemp -d)'
 alias view='vi -R' # which is usually linked to vim
 alias c='printf "\e[H\e[2J"'
 alias clear='printf "\e[H\e[2J"'
-alias l='ls -alh'
-alias md='mkdir'
-alias ..='cd ..'
 alias update='source $HOME/.bashrc'
 alias bashrc='vim $HOME/.bashrc'
 
 which vim &>/dev/null && alias vi=vim
 
+# ---------------------- import files -------------------------------
+
+for file in ~/.{bash_functions,bash_aliases,bash_dockerfunctions}; do
+	if [[ -r "$file" ]] && [[ -f "$file" ]]; then
+		# shellcheck source=/dev/null
+		source "$file"
+	fi
+done
+unset file
 # ----------------------------- functions ----------------------------
 
 envx() {
@@ -284,6 +291,8 @@ test -r ~/.bash_personal && source ~/.bash_personal
 test -r ~/.bash_private && source ~/.bash_private
 test -r ~/.bash_work && source ~/.bash_work
 
+# ------------------------------ NVM ---------------------------------
+# https://github.com/nvm-sh/nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
