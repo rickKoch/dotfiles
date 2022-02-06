@@ -1,5 +1,4 @@
 " designed for vim 8+
-" (see https://rwx.gg/vi for help)
 let skip_defaults_vim=1
 let mapleader=","
 set nocompatible
@@ -260,7 +259,7 @@ endif
 " s,/foo,/bar,g
 "autocmd vimleavepre *.md !perl -p -i -e 's,\[([^\]]+)\]\(\),[\1](https://duck.com/lite?kd=-1&kp=-1&q=\1),g' %
 
-autocmd BufWritePost *.md silent !toemoji %
+" autocmd BufWritePost *.md silent !toemoji %
 
 " fill in anything beginning with @ with a link to twitch to it
 autocmd vimleavepre *.md !perl -p -i -e 's, @(\w+), [\\@\1](https://twitch.tv/\1),g' %

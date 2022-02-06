@@ -201,7 +201,7 @@ let g:go_highlight_build_constraints = 1
 let g:go_highlight_generate_tags = 1
 let g:go_highlight_variable_declarations = 1
 let g:go_highlight_variable_assignments = 1
-let g:go_auto_sameids = 1
+" let g:go_auto_sameids = 1
 
 au FileType go nmap <leader>rv <Plug>(go-run-vertical)
 au FileType go set noexpandtab

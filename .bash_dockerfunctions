@@ -1045,23 +1045,23 @@ sshb0t(){
 		--user "${GITHUB_USER}" --keyfile /root/.ssh/authorized_keys --once
 }
 
-steam(){
-	del_stopped steam
-	relies_on pulseaudio
+# steam(){
+	# del_stopped steam
+	# relies_on pulseaudio
 
-	docker run -d \
-		-v /etc/localtime:/etc/localtime:ro \
-		-v /etc/machine-id:/etc/machine-id:ro \
-		-v /var/run/dbus:/var/run/dbus \
-		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		-v "${HOME}/.steam:/home/steam" \
-		-e "DISPLAY=unix${DISPLAY}" \
-		--link pulseaudio:pulseaudio \
-		-e PULSE_SERVER=pulseaudio \
-		--device /dev/dri \
-		--name steam \
-		${DOCKER_REPO_PREFIX}/steam
-}
+	# docker run -d \
+		# -v /etc/localtime:/etc/localtime:ro \
+		# -v /etc/machine-id:/etc/machine-id:ro \
+		# -v /var/run/dbus:/var/run/dbus \
+		# -v /tmp/.X11-unix:/tmp/.X11-unix \
+		# -v "${HOME}/.steam:/home/steam" \
+		# -e "DISPLAY=unix${DISPLAY}" \
+		# --link pulseaudio:pulseaudio \
+		# -e PULSE_SERVER=pulseaudio \
+		# --device /dev/dri \
+		# --name steam \
+		# ${DOCKER_REPO_PREFIX}/steam
+# }
 
 t(){
 	docker run -t --rm \

@@ -49,23 +49,13 @@ if test -x /usr/bin/lesspipe; then
   export LESSCLOSE="/usr/bin/lesspipe %s %s";
 fi
 
-# export LESS_TERMCAP_mb="[35m" # magenta
-# export LESS_TERMCAP_md="[33m" # yellow
-# export LESS_TERMCAP_me="" # "0m"
-# export LESS_TERMCAP_se="" # "0m"
-# export LESS_TERMCAP_so="[34m" # blue
-# export LESS_TERMCAP_ue="" # "0m"
-# export LESS_TERMCAP_us="[4m"  # underline
-
-# ----------------------------- dircolors ----------------------------
-
-# if command -v dircolors &>/dev/null; then
-  # if test -r ~/.dircolors; then
-    # eval "$(dircolors -b ~/.dircolors)"
-  # else
-    # eval "$(dircolors -b)"
-  # fi
-# fi
+export LESS_TERMCAP_mb="$(printf '\e[1;31m')" \
+export LESS_TERMCAP_md="$(printf '\e[1;31m')" \
+export LESS_TERMCAP_me="$(printf '\e[0m')" \
+export LESS_TERMCAP_se="$(printf '\e[0m')" \
+export LESS_TERMCAP_so="$(printf '\e[1;44;33m')" \
+export LESS_TERMCAP_ue="$(printf '\e[0m')" \
+export LESS_TERMCAP_us="$(printf '\e[1;32m')" \
 
 # ------------------------------- path -------------------------------
 
@@ -159,18 +149,55 @@ PROMPT_MAX=95
 PROMPT_AT=@
 
 __ps1() {
-  local P='$' dir="${PWD##*/}" B countme short long double\
-    r='\[\e[31m\]' g='\[\e[30m\]' h='\[\e[34m\]' \
-    u='\[\e[33m\]' p='\[\e[33m\]' w='\[\e[35m\]' \
-    b='\[\e[36m\]' x='\[\e[0m\]'
+  local P='$'
 
-  [[ $EUID == 0 ]] && P='#' && u=$r && p=$u # root
-  [[ $PWD = / ]] && dir=/
-  [[ $PWD = "$HOME" ]] && dir='~'
+  if test -n "${ZSH_VERSION}"; then
+    local r='%F{red}'
+    local g='%F{black}'
+    local h='%F{blue}'
+    local u='%F{yellow}'
+    local p='%F{yellow}'
+    local w='%F{magenta}'
+    local b='%F{cyan}'
+    local x='%f'
+  else
+    local r='\[\e[31m\]'
+    local g='\[\e[1;35m\]'
+    local h='\[\e[1;34m\]'
+    local u='\[\e[36m\]'
+    local p='\[\e[33m\]'
+    local w='\[\e[35m\]'
+    local b='\[\e[36m\]'
+    local x='\[\e[0m\]'
+  fi
 
-  B=$(git branch --show-current 2>/dev/null)
-  [[ $dir = "$B" ]] && B=.
-  countme="$USER$PROMPT_AT$(hostname):$dir($B)\$ "
+  if test "${EUID}" == 0; then
+    P='#'
+    if test -n "${ZSH_VERSION}"; then
+      u='$F{red}'
+    else
+      u=$r
+    fi
+    p=$u
+  fi
+
+  local dir;
+  if test "$PWD" = "$HOME"; then
+    dir='~'
+  else
+    dir="${PWD##*/}"
+    if test "${dir}" = _; then
+      dir=${PWD#*${PWD%/*/_}}
+      dir=${dir#/}
+    elif test "${dir}" = work; then
+      dir=${PWD#*${PWD%/*/work}}
+      dir=${dir#/}
+    fi
+  fi
+
+  local B=$(git branch --show-current 2>/dev/null)
+  test "$dir" = "$B" && B='.'
+  local countme="$USER@$(hostname):$dir($B)\$ "
 
   [[ $B = master || $B = main ]] && b="$r"
   [[ -n "$B" ]] && B="$u($b$B$u)"
@@ -179,9 +206,9 @@ __ps1() {
   long="$u╔ $u\u$u$PROMPT_AT$h\h$u:$w$dir$B\n$u╚ $p$P$x "
   double="$u╔ $u\u$u$PROMPT_AT$h\h$u:$w$dir\n$u║ $B\n$u╚ $p$P$x "
 
-  if (( ${#countme} > PROMPT_MAX )); then
+  if test ${#countme} -gt "${PROMPT_MAX}"; then
     PS1="$double"
-  elif (( ${#countme} > PROMPT_LONG )); then
+  elif test ${#countme} -gt "${PROMPT_LONG}"; then
     PS1="$long"
   else
     PS1="$short"
