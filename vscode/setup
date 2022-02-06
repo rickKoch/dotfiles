@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -e
+
+ln -sf "$PWD/keybindings.json" "$HOME/.config/Code/User/keybindings.json"
+ln -sf "$PWD/settings.json" "$HOME/.config/Code/User/settings.json"
+
+# update the extensions in a specific file
+# code --list-extensions >> vs_code_extensions_list.txt
+
+# install extensions by a specific file
+# cat vs_code_extensions_list.txt | xargs -n 1 code --install-extension

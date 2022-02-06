@@ -1,0 +1,17 @@
+christian-kohler.npm-intellisense
+dbaeumer.vscode-eslint
+donjayamanne.githistory
+esbenp.prettier-vscode
+fabiospampinato.vscode-todo-plus
+GitHub.codespaces
+golang.go
+ms-azuretools.vscode-docker
+ms-vscode-remote.remote-containers
+ms-vscode.vscode-typescript-tslint-plugin
+patbenatar.advanced-new-file
+Shan.code-settings-sync
+sleistner.vscode-fileutils
+vscode-icons-team.vscode-icons
+vscodevim.vim
+wayou.vscode-todo-highlight
+zhuangtongfa.material-theme

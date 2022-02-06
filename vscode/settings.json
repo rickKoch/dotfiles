@@ -1,0 +1,168 @@
+{
+    "workbench.editor.showTabs": false,
+    "workbench.startupEditor": "none",
+    "workbench.colorCustomizations": {
+        "editorCursor.foreground": "#abb2bf",
+        // "terminalCursor.foreground": "#abb2bf",
+        // "statusBar.foreground": "#282c34",
+        // "statusBar.background": "#98c379",
+        // "statusBar.noFolderBackground": "#98c379",
+        // "statusBar.debuggingBackground": "#98c379",
+        // "editorLineNumber.foreground": "#999999"
+    },
+    "workbench.panel.defaultLocation": "right",
+    "workbench.activityBar.visible": false,
+    "workbench.tree.indent": 20,
+    "workbench.editor.limit.enabled": true,
+    "workbench.iconTheme": "vscode-icons",
+    "explorer.openEditors.visible": 0,
+    "explorer.confirmDelete": false,
+    "editor.fontFamily": "JetBrains Mono, dejavu sans mono for powerline,  monospace",
+    "editor.fontSize": 13,
+    "editor.fontLigatures": true,
+    "editor.lineHeight": 22,
+    "editor.minimap.enabled": false,
+    "editor.cursorBlinking": "solid",
+    "editor.renderControlCharacters": false,
+    "editor.renderWhitespace": "none",
+    "editor.acceptSuggestionOnCommitCharacter": false,
+    "editor.glyphMargin": true,
+    "editor.renderIndentGuides": false,
+    "editor.renderLineHighlight": "all",
+    "typescript.tsserver.log": "off",
+    "prettier.tabWidth": 4,
+    "prettier.requirePragma": false,
+    "vscode_custom_css.policy": true,
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.fontFamily": "JetBrains Mono, dejavu sans mono for powerline,  monospace",
+    "vim.leader": ",",
+    "vim.changeWordIncludesWhitespace": false, // Include trailing whitespace when changing word.
+    "vim.useSystemClipboard": true, // copy and paste
+    "vim.hlsearch": true, // highlight search
+    "vim.highlightedyank.enable": true, // highlight yank/copy
+    "vim.highlightedyank.color": "rgba(250, 240, 170, 0.5)", // color of the yank highlight
+    "vim.highlightedyank.duration": 1000, // durtaion of the yank highlight
+    "vim.easymotion": true, // enable easymotion plugin
+    "vim.camelCaseMotion.enable": true,
+    "vim.surround": false,
+    "vim.easymotionMarkerBackgroundColor": "#005f5f",
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<C-n>"],
+            "commands": [":nohl"]
+        }
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": [">"],
+            "commands": ["editor.action.indentLines"]
+        },
+        {
+            "before": ["<"],
+            "commands": ["editor.action.outdentLines"]
+        }
+    ],
+    "window.menuBarVisibility": "toggle",
+    "window.restoreWindows": "none", // don't open the previous project
+    "outline.problems.enabled": false,
+    "breadcrumbs.enabled": true,
+    "files.trimTrailingWhitespace": false,
+    "azureFunctions.showProjectWarning": false,
+    "azureFunctions.showCoreToolsWarning": false,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "eslint.validate": ["javascript"],
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "diffEditor.renderSideBySide": true,
+    "todohighlight.isEnable": true,
+    "todohighlight.isCaseSensitive": true,
+    "todohighlight.keywords": [
+        {
+            "text": "NOTE:",
+            "color": "green",
+            "backgroundColor": "yellow",
+            "overviewRulerColor": "grey"
+        }
+    ],
+    "todo.colors.code": "#fff", // Code color
+    "todo.colors.comment": "#fff", // Comment color
+    "go.goroot": "/usr/local/go",
+    "go.autocompleteUnimportedPackages": true,
+    "go.useCodeSnippetsOnFunctionSuggestWithoutType": true,
+    "go.docsTool": "godoc", // this will be ignored if useLanguageServer is true
+    "go.formatTool": "goimports", // this will be ignored if gopls has option '"format": true', see gopls section below
+    "go.formatFlags": [
+        "--local=github.com/your/repo" // goimports-only
+    ],
+    "go.toolsEnvVars": {
+        "GO111MODULE": "on"
+        // "GOOS": "js",
+        // "GOARCH": "wasm",
+        // "GOFLAGS": "-mod=vendor", // to work with modules in vendoring mode
+    },
+    "go.coverageDecorator": {
+        "type": "gutter"
+    },
+    "go.coverageOptions": "showUncoveredCodeOnly",
+    "go.coverOnTestPackage": true,
+    "go.coverOnSingleTest": false,
+    "go.addTags": {
+        "tags": "json",
+        "promptForTags": false,
+        "transform": "snakecase",
+        "options": "" // e.g. omitempty
+    },
+    "go.enableCodeLens": {
+        "references": false,
+        "runtest": true
+    },
+    "go.useLanguageServer": true,
+    "go.lintFlags": ["--disable-all"],
+    "[go]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        },
+        "editor.formatOnSave": true,
+        "editor.snippetSuggestions": "inline"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "search.exclude": {
+        "**/node_modules": true
+    },
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/**": true
+    },
+    "files.associations": {
+        "*.html": "html"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[less]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "workbench.colorTheme": "One Dark Pro",
+    "editor.accessibilitySupport": "off",
+    "tslint.alwaysShowRuleFailuresAsWarnings": false,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "window.zoomLevel": 2
+}
