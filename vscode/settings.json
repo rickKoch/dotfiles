@@ -9,8 +9,9 @@
         // "statusBar.noFolderBackground": "#98c379",
         // "statusBar.debuggingBackground": "#98c379",
         // "editorLineNumber.foreground": "#999999"
+        // "editorGutter.background": "#000000" // your color here
+        // "editorGutter.forground": "#000000" // your color here
     },
-    "workbench.panel.defaultLocation": "right",
     "workbench.activityBar.visible": false,
     "workbench.tree.indent": 20,
     "workbench.editor.limit.enabled": true,
@@ -18,7 +19,7 @@
     "explorer.openEditors.visible": 0,
     "explorer.confirmDelete": false,
     "editor.fontFamily": "JetBrains Mono, dejavu sans mono for powerline,  monospace",
-    "editor.fontSize": 13,
+    "editor.fontSize": 14,
     "editor.fontLigatures": true,
     "editor.lineHeight": 22,
     "editor.minimap.enabled": false,
@@ -27,12 +28,11 @@
     "editor.renderWhitespace": "none",
     "editor.acceptSuggestionOnCommitCharacter": false,
     "editor.glyphMargin": true,
-    "editor.renderIndentGuides": false,
     "editor.renderLineHighlight": "all",
+    "editor.rulers": [ 80 ],
     "typescript.tsserver.log": "off",
     "prettier.tabWidth": 4,
     "prettier.requirePragma": false,
-    "vscode_custom_css.policy": true,
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.fontFamily": "JetBrains Mono, dejavu sans mono for powerline,  monospace",
     "vim.leader": ",",
@@ -45,11 +45,20 @@
     "vim.easymotion": true, // enable easymotion plugin
     "vim.camelCaseMotion.enable": true,
     "vim.surround": false,
+    "vim.showMarksInGutter": true,
     "vim.easymotionMarkerBackgroundColor": "#005f5f",
     "vim.normalModeKeyBindingsNonRecursive": [
         {
             "before": ["<C-n>"],
             "commands": [":nohl"]
+        },
+        {
+            "before": ["[", "g"],
+            "commands": ["editor.action.marker.prev"]
+        },
+        {
+            "before": ["]", "g"],
+            "commands": ["editor.action.marker.next"]
         }
     ],
     "vim.visualModeKeyBindingsNonRecursive": [
@@ -67,8 +76,6 @@
     "outline.problems.enabled": false,
     "breadcrumbs.enabled": true,
     "files.trimTrailingWhitespace": false,
-    "azureFunctions.showProjectWarning": false,
-    "azureFunctions.showCoreToolsWarning": false,
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
     },
@@ -164,5 +171,6 @@
     "editor.accessibilitySupport": "off",
     "tslint.alwaysShowRuleFailuresAsWarnings": false,
     "diffEditor.ignoreTrimWhitespace": false,
-    "window.zoomLevel": 2
+    "window.zoomLevel": 2,
+    "git.autofetch": true
 }
