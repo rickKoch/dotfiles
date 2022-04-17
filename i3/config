@@ -2,7 +2,7 @@
 set $mod Mod4
 
 # font
-font pango: System San Francisco Display 13
+font pango: Hack Regular Nerd Font Complete Mono 13
 
 # thin borders
 hide_edge_borders both
@@ -52,16 +52,28 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
-set $workspace1 "1 "
-set $workspace2 "2 "
-set $workspace3 "3 "
-set $workspace4 "4 "
-set $workspace5 "5 "
-set $workspace6 "6 "
-set $workspace7 "7 "
-set $workspace8 "8 "
-set $workspace9 "9 "
-set $workspace10 "10 "
+#set $workspace1 "1 "
+#set $workspace2 "2 "
+#set $workspace3 "3 "
+#set $workspace4 "4 "
+#set $workspace5 "5 "
+#set $workspace6 "6 "
+#set $workspace7 "7 "
+#set $workspace8 "8 "
+#set $workspace9 "9 "
+#set $workspace10 "10 "
+
+set $workspace1 "1"
+set $workspace2 "2"
+set $workspace3 "3"
+set $workspace4 "4"
+set $workspace5 "5"
+set $workspace6 "6"
+set $workspace7 "7"
+set $workspace8 "8"
+set $workspace9 "9"
+set $workspace10 "10"
+
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $workspace1
@@ -115,39 +127,77 @@ mode "resize" {
 # resize mode
 bindsym $mod+r mode "resize"
 
-set $bg-color 	         #2f343f
-set $inactive-bg-color   #2f343f
-set $text-color          #f3f4f5
-set $inactive-text-color #676E7D
-set $urgent-bg-color     #E53935
+#set $bg-color 	         #2f343f
+#set $inactive-bg-color   #2f343f
+#set $text-color          #f3f4f5
+#set $inactive-text-color #676E7D
+#set $urgent-bg-color     #E53935
 
 # window colors
 #                       border              background         text                 indicator
-client.focused          $bg-color           $bg-color          $text-color          #00ff00
-client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color #00ff00
-client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color #00ff00
-client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #00ff00
+#client.focused          $bg-color           $bg-color          $text-color          #00ff00
+#client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color #00ff00
+#client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color #00ff00
+#client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #00ff00
 
 # bar
+#bar {
+   ## status_command i3blocks -c /home/rick/.config/i3/i3blocks.conf
+   #status_command i3status
+	#position	top
+	#colors {
+		#background $bg-color
+				#separator #757575
+		##                  border             background         text
+		#focused_workspace  $bg-color          $bg-color          $text-color
+		#inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+		#urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+	#}
+
+	## tray_output none|primary|<output>
+	#tray_output primary
+
+	## separator between bar sections
+	##separator_symbol " | "
+#}
+
 bar {
- 	# status_command i3blocks -c /home/rick/.config/i3/i3blocks.conf
- 	status_command i3status
-	position	top
-	colors {
-		background $bg-color
-	    	separator #757575
-		#                  border             background         text
-		focused_workspace  $bg-color          $bg-color          $text-color
-		inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-		urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-	}
+   	height 25
+	position top
+    font pango: Hack Regular Nerd Font Complete Mono 13
+	status_command i3status
+    tray_padding 1
+    strip_workspace_numbers yes
 
-	# tray_output none|primary|<output>
-	tray_output primary
+    colors {
+            separator  #1f222d
+            background #1f222d
+            statusline #81a1c1
 
-	# separator between bar sections
-	#separator_symbol " | "
+            #                   border  background text
+            focused_workspace  #1f222d #1f222d    #81a1c1
+            active_workspace   #1f222d #252936    #5e81ac
+            inactive_workspace #1f222d #1f222d    #4c566a
+            urgent_workspace   #1f222d #1f222d    #ee829f
+            binding_mode       #1f222d #81a1c1    #2e3440
+    }
 }
+
+    ##START THEMING WM
+
+    # Window color settings
+    # class                 border  backgr. text    indicator
+    client.focused          #81a1c1 #81a1c1 #ffffff #81a1c1
+    client.unfocused        #2e3440 #1f222d #888888 #1f222d
+    client.focused_inactive #2e3440 #1f222d #888888 #1f222d
+    client.placeholder      #2e3440 #1f222d #888888 #1f222d
+    client.urgent           #900000 #900000 #ffffff #900000
+
+    client.background       #242424
+
+    ##STOP THEMING WM
+
+exec xset r rate 300 50 &
 
 # gaps
 gaps inner 5
@@ -214,7 +264,8 @@ bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewi
 bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 
 # startup
-exec_always --no-startup-id feh --bg-scale /home/rick/Pictures/wallpaper.jpg
+# exec_always --no-startup-id feh --bg-scale /home/rick/Pictures/wallpaper.jpg
+exec_always --no-startup-id feh --bg-scale /home/rick/Repos/github.com/rickKoch/dotfiles/wallpapers/cat_pacman.png
 # exec --no-startup-id discord
 exec --no-startup-id emote
 # exec --no-startup-id /opt/viber/Viber

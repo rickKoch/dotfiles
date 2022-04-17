@@ -31,7 +31,7 @@
     "editor.renderLineHighlight": "all",
     "editor.rulers": [ 80 ],
     "typescript.tsserver.log": "off",
-    "prettier.tabWidth": 4,
+    "prettier.tabWidth": 2,
     "prettier.requirePragma": false,
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.fontFamily": "JetBrains Mono, dejavu sans mono for powerline,  monospace",
@@ -172,5 +172,6 @@
     "tslint.alwaysShowRuleFailuresAsWarnings": false,
     "diffEditor.ignoreTrimWhitespace": false,
     "window.zoomLevel": 2,
-    "git.autofetch": true
+    "git.autofetch": true,
+    "editor.tabSize": 2
 }
