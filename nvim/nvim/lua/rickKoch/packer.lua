@@ -49,6 +49,15 @@ local function packer_startup()
       require'rickKoch.plugins.lspconfig'.init()
     end
   }
+
+
+  --use {
+    --'jose-elias-alvarez/null-ls.nvim',
+    --config = function ()
+      --require'rickKoch.plugins.null-ls'.init()
+    --end
+  --}
+
   use 'hashivim/vim-terraform'
 
   -- Treesitter

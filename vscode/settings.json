@@ -171,7 +171,10 @@
     "editor.accessibilitySupport": "off",
     "tslint.alwaysShowRuleFailuresAsWarnings": false,
     "diffEditor.ignoreTrimWhitespace": false,
-    "window.zoomLevel": 2,
+    "window.zoomLevel": 5,
     "git.autofetch": true,
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
 }

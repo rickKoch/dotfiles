@@ -74,6 +74,16 @@ set $workspace8 "8"
 set $workspace9 "9"
 set $workspace10 "10"
 
+workspace 1 output HDMI-1
+workspace 2 output HDMI-1
+workspace 3 output HDMI-1
+workspace 4 output HDMI-1
+workspace 5 output HDMI-1
+workspace 6 output DP-1
+workspace 7 output DP-1
+workspace 8 output DP-1
+workspace 9 output DP-1
+workspace 10 output DP-1
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $workspace1
@@ -197,7 +207,10 @@ bar {
 
     ##STOP THEMING WM
 
+# xrandr --auto --output DP-1 --mode 1920x1080
 exec xset r rate 300 50 &
+# exec --no-startup-id xrandr --output HDMI-1 --auto --right-of DP-1 --mode 1920x1080 
+# exec --no-startup-id xrandr --output HDMI-1 --primary --left-of DP-1
 
 # gaps
 gaps inner 5
@@ -222,7 +235,7 @@ assign [class="discord"] $workspace9
 assign [class="ViberPC"] $workspace9
 # assign [class="Skype"] $workspace9
 # assign [class="qTox"] $workspace9
-assign [class="Brave-browser"] $workspace1
+#assign [class="Brave-browser"] $workspace1
 
 # workspace default monitors
 # workspace $workspace1 output DVI-I-2
