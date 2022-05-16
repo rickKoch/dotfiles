@@ -71,7 +71,6 @@
             "commands": ["editor.action.outdentLines"]
         }
     ],
-    "window.menuBarVisibility": "toggle",
     "window.restoreWindows": "none", // don't open the previous project
     "outline.problems.enabled": false,
     "breadcrumbs.enabled": true,
@@ -171,10 +170,12 @@
     "editor.accessibilitySupport": "off",
     "tslint.alwaysShowRuleFailuresAsWarnings": false,
     "diffEditor.ignoreTrimWhitespace": false,
-    "window.zoomLevel": 5,
     "git.autofetch": true,
     "editor.tabSize": 2,
     "[typescriptreact]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
+    },
+    "window.zoomLevel": 1,
+    "vim.smartRelativeLine": true,
+    "window.menuBarVisibility": "toggle"
 }

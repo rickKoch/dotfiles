@@ -52,8 +52,9 @@ disk "/" {
   format = "%avail"
 }
 
-load {
-  format = "CPU: %1min"
+cpu_usage {
+  format = "%usage"
+  max_threshold = 75
 }
 
 memory {

@@ -209,6 +209,10 @@ bar {
 
 # xrandr --auto --output DP-1 --mode 1920x1080
 exec xset r rate 300 50 &
+# disable the screen saver feature
+exec xset s off 
+# power saving feature can be turned off with
+exec xset -dpms
 # exec --no-startup-id xrandr --output HDMI-1 --auto --right-of DP-1 --mode 1920x1080 
 # exec --no-startup-id xrandr --output HDMI-1 --primary --left-of DP-1
 
