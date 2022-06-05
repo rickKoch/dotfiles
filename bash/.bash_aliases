@@ -122,7 +122,7 @@ alias cp='cp -i'
 alias mv='mv -i'
 
 # better cat
-alias cat='batcat'
+alias cat='bat'
 
 # Pipe my public key to my clipboard.
 alias pubkey="more ~/.ssh/id_ed25519.pub | xclip -selection clipboard | echo '=> Public key copied to pasteboard.'"
