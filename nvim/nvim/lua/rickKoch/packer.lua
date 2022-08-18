@@ -3,7 +3,7 @@ local fn = vim.fn
 local packer = nil
 
 local function packer_verify()
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
   if fn.empty(fn.glob(install_path)) > 0 then
     fn.system({ 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path })
@@ -13,7 +13,7 @@ end
 
 local function packer_startup()
   if packer == nil then
-    packer = require'packer'
+    packer = require 'packer'
     packer.init()
   end
 
@@ -70,7 +70,7 @@ local function packer_startup()
       require("rickKoch.plugins.lsp")
       require('rickKoch.plugins.symbols-outline').init()
       require("rickKoch.plugins.cmp")
-      require'rickKoch.plugins.cmp_tabnine'.init()
+      require 'rickKoch.plugins.cmp_tabnine'.init()
     end,
   }
 
@@ -80,39 +80,6 @@ local function packer_startup()
       require("nvim-autopairs").setup({})
     end,
   })
-  --use {
-  --'lspcontainers/lspcontainers.nvim',
-  --requires = {
-  --'neovim/nvim-lspconfig',
-  --'nvim-lua/lsp_extensions.nvim',
-  --},
-  --config = function ()
-  --require'lspcontainers'.setup({
-  --ensure_installed = {
-  --"bashls",
-  --"dockerls",
-  --"gopls",
-  --"html",
-  --"pylsp",
-  --"rust_analyzer",
-  --"sumneko_lua",
-  --"terraformls",
-  --"tsserver",
-  --"yamlls"
-  --}
-  --})
-
-  --require'rickKoch.plugins.lspconfig'.init()
-  --end
-  --}
-
-
-  --use {
-  --'jose-elias-alvarez/null-ls.nvim',
-  --config = function ()
-  --require'rickKoch.plugins.null-ls'.init()
-  --end
-  --}
 
   use 'hashivim/vim-terraform'
 
@@ -123,37 +90,17 @@ local function packer_startup()
     config = function()
       require 'rickKoch.plugins.treesitter'.init()
     end,
+    requires = {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      "nvim-treesitter/nvim-treesitter-context",
+      "lewis6991/spellsitter.nvim",
+    },
   }
-
-  -- Completion
-  --use {
-  --'hrsh7th/nvim-cmp',
-  --requires = {
-  --'hrsh7th/cmp-buffer',
-  --'hrsh7th/cmp-cmdline',
-  --'hrsh7th/cmp-path',
-  --'hrsh7th/cmp-nvim-lsp',
-  --'hrsh7th/cmp-vsnip',
-  --'hrsh7th/vim-vsnip',
-  --'ray-x/cmp-treesitter',
-  --{
-  --'tzachar/cmp-tabnine',
-  --run = "./install.sh",
-  --},
-  --'onsails/lspkind-nvim'
-  --},
-  --config = function ()
-  --require'rickKoch.plugins.cmp'.init()
-  --require'rickKoch.plugins.cmp_tabnine'.init()
-  --require'rickKoch.plugins.lspkind'.init()
-  --end
-  --}
 
   -- Telescope
   use 'nvim-lua/popup.nvim'
   use {
     'nvim-telescope/telescope.nvim',
-    -- requires = 'rmagatti/session-lens',
     config = function()
       require 'rickKoch.plugins.telescope'.init()
     end
@@ -168,8 +115,6 @@ local function packer_startup()
   }
 
   -- Git Support
-  -- use 'rhysd/git-messenger.vim'
-
   use {
     'lewis6991/gitsigns.nvim',
     requires = {
@@ -179,17 +124,6 @@ local function packer_startup()
       require 'rickKoch.plugins.gitsigns'.init()
     end
   }
-
-  -- Sessions
-  --use {
-    --'rmagatti/auto-session',
-    --config = function ()
-      --require'rickKoch.plugins.auto_session'.init()
-    --end
-  --}
-
-  -- Utilities
-  -- use 'unblevable/quick-scope' -- promote use of f<key>
 
   use 'lukas-reineke/indent-blankline.nvim'
 
@@ -203,13 +137,11 @@ local function packer_startup()
 
   use 'preservim/nerdcommenter'
 
-  use 'romgrk/nvim-treesitter-context'
-
   use {
     "folke/trouble.nvim",
     requires = "kyazdani42/nvim-web-devicons",
     config = function()
-      require "trouble".setup()
+     equire "trouble".setup()
     end
   }
 

@@ -1,5 +1,6 @@
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 local lspstatus = require("lsp-status")
+
 lspstatus.config({
   status_symbol = "⬤ ",
   current_function = true,
@@ -54,6 +55,10 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
   buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
   buf_set_keymap("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+  buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", opts)
+  buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+  buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+  buf_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
 
   if client.server_capabilities.document_formatting and client.name ~= "sumneko_lua" then
     vim.cmd([[
