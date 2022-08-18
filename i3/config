@@ -146,7 +146,7 @@ gaps outer 5
 
 bindsym $mod+Shift+s sticky toggle
 bindsym $mod+Shift+f exec firefox
-bindsym $mod+Return exec --no-startup-id xfce4-terminal 
+bindsym $mod+Return exec --no-startup-id xfce4-terminal
 
 bindsym $mod+Shift+q kill
 
@@ -164,3 +164,5 @@ bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection c
 
 exec_always --no-startup-id feh --bg-scale /home/rick/Repos/github.com/rickKoch/dotfiles/wallpapers/cat-sound.png
 exec_always --no-startup-id VBoxClient --clipboard
+# transparent terminal
+exec_always --no-startup-id --no-startup-id picom -b
