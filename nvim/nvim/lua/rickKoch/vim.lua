@@ -3,10 +3,67 @@ local function set_augroup()
   vim.api.nvim_command("autocmd!")
   vim.api.nvim_command("autocmd FileType markdown setlocal wrap")
   vim.api.nvim_command("augroup END")
+
+
+  vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+    pattern = "*.dockerfile",
+    command = "set ft=dockerfile",
+    group = vim.api.nvim_create_augroup("Dockerfile", { clear = true }),
+  })
+
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "*.txt", "*.md", "*.tex", "gitcommit", "gitrebase" },
+    command = "setlocal spell",
+    group = vim.api.nvim_create_augroup("Spell", { clear = true }),
+  })
+
+  -- ensure the parent folder exists, so it gets properly added to the lsp context and everything just works.
+  vim.api.nvim_create_autocmd("BufNewFile", {
+    pattern = "*",
+    callback = function()
+      local dir = vim.fn.expand("<afile>:p:h")
+      if vim.fn.isdirectory(dir) == 0 then
+        vim.fn.mkdir(dir, "p")
+        vim.cmd([[ :e % ]])
+      end
+    end,
+    group = vim.api.nvim_create_augroup("Mkdir", { clear = true }),
+  })
+
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    callback = function()
+      vim.cmd([[
+        let save = winsaveview()
+        keeppatterns %s/\s\+$//e
+        call winrestview(save)
+      ]])
+    end,
+    pattern = "*",
+    group = vim.api.nvim_create_augroup("TrimWhitespace", { clear = true }),
+  })
+
+  -- [[ Highlight on yank ]]
+  -- See `:help vim.highlight.on_yank()`
+  vim.api.nvim_create_autocmd("TextYankPost", {
+    callback = function()
+      vim.highlight.on_yank()
+    end,
+    pattern = "*",
+    group = vim.api.nvim_create_augroup("Highlight", { clear = true }),
+  })
+
+end
+
+local function disable_clipboard_cleaning()
+  vim.api.nvim_command("autocmd VimLeave * call system(\"xsel -ib\", getreg('+'))")
 end
 
 local function set_vim_g()
   vim.g.mapleader = ","
+  vim.g.netrw_winsize = 15
+  vim.g.netrw_keepdir = 0
+  vim.g.netrw_banner = 0
+  vim.g.netrw_localcopydircmd = 'cp -r'
 end
 
 local function set_vim_o()
@@ -61,6 +118,7 @@ end
 
 local function init()
   set_augroup()
+  disable_clipboard_cleaning()
   set_vim_g()
   set_vim_o()
   set_vim_wo()

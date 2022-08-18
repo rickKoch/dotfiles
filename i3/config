@@ -52,17 +52,6 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
-#set $workspace1 "1 "
-#set $workspace2 "2 "
-#set $workspace3 "3 "
-#set $workspace4 "4 "
-#set $workspace5 "5 "
-#set $workspace6 "6 "
-#set $workspace7 "7 "
-#set $workspace8 "8 "
-#set $workspace9 "9 "
-#set $workspace10 "10 "
-
 set $workspace1 "1"
 set $workspace2 "2"
 set $workspace3 "3"
@@ -74,18 +63,6 @@ set $workspace8 "8"
 set $workspace9 "9"
 set $workspace10 "10"
 
-#workspace 1 output HDMI-1
-#workspace 2 output HDMI-1
-#workspace 3 output HDMI-1
-#workspace 4 output HDMI-1
-#workspace 5 output HDMI-1
-#workspace 6 output DP-1
-#workspace 7 output DP-1
-#workspace 8 output DP-1
-#workspace 9 output DP-1
-#workspace 10 output DP-1
-
-# move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $workspace1
 bindsym $mod+Shift+2 move container to workspace $workspace2
 bindsym $mod+Shift+3 move container to workspace $workspace3
@@ -154,10 +131,7 @@ bar {
     }
 }
 
-    ##START THEMING WM
 
-    # Window color settings
-    # class                 border  backgr. text    indicator
     client.focused          #81a1c1 #81a1c1 #ffffff #81a1c1
     client.unfocused        #2e3440 #1f222d #888888 #1f222d
     client.focused_inactive #2e3440 #1f222d #888888 #1f222d
@@ -166,31 +140,16 @@ bar {
 
     client.background       #242424
 
-    ##STOP THEMING WM
 
-# gaps
 gaps inner 5
 gaps outer 5
 
-# sticky window
 bindsym $mod+Shift+s sticky toggle
-
-# key-bindings
-# Use pactl to adjust volume in PulseAudio.
-#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
-#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
-#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-#bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3statusk
-#bindsym XF86AudioPlay exec playerctl play-pause
-#bindsym XF86AudioPause exec playerctl play-pause
-#bindsym XF86AudioNext exec playerctl next
-#bindsym XF86AudioPrev exec playerctl previous
 bindsym $mod+Shift+f exec firefox
-bindsym $mod+Shift+b exec brave-browser
-#bindsym $mod+Shift+v exec --no-startup-id vlc /home/rick/Music/radio.xspf
-bindsym $mod+Return exec --no-startup-id xfce4-terminal
+bindsym $mod+Return exec --no-startup-id xfce4-terminal 
+
 bindsym $mod+Shift+q kill
-# bindsym $mod+p exec screenshot
+
 bindsym $mod+d exec --no-startup-id dmenu_recency
 
 # Screenshots
@@ -203,6 +162,5 @@ bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t ima
 bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
 bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 
-# startup
-exec_always --no-startup-id feh --bg-scale /home/rick/Repos/github.com/rickKoch/dotfiles/wallpapers/cat_pacman.png
+exec_always --no-startup-id feh --bg-scale /home/rick/Repos/github.com/rickKoch/dotfiles/wallpapers/cat-sound.png
 exec_always --no-startup-id VBoxClient --clipboard

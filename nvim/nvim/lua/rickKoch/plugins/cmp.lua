@@ -1,52 +1,93 @@
-local function init()
-  local cmp = require'cmp'
-  local lspkind = require'lspkind'
+local cmp = require("cmp")
+local luasnip = require("luasnip")
 
-  cmp.setup({
-    formatting = {
-      format = lspkind.cmp_format({
-        maxwidth = 50,
-        menu = ({
-          buffer = "[Buffer]",
-          cmp_tabnine = "[T9]",
-          nvim_lsp = "[LSP]",
-          nvim_lua = "[Lua]",
-          treesitter = "[TS]",
-          vsnip = "[VSnip]",
-        }),
-        with_text = true
-      }),
-    },
-    snippet = {
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body)
-      end,
-    },
-    mapping = cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    }),
-    sources = {
-      { name = 'cmp_tabnine' },
-      { name = 'nvim_lsp' },
-      { name = 'nvim_lua' },
-      { name = 'treesitter' },
-      { name = 'vsnip' },
-    }
-  })
-
-  cmp.setup.cmdline('/', {
-    sources = {
-      { name = 'buffer' }
-    }
-  })
-
-  vim.o.completeopt = 'menu,menuone,noselect'
+local has_words_before = function()
+	---@diagnostic disable-next-line: deprecated
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-return {
-  init = init
-}
+cmp.setup({
+	snippet = {
+		expand = function(args)
+			luasnip.lsp_expand(args.body)
+		end,
+	},
+	window = {
+		completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered(),
+	},
+	completion = {
+		---@usage The minimum length of a word to complete on.
+		keyword_length = 2,
+	},
+
+	mapping = cmp.mapping.preset.insert({
+		["<C-d>"] = cmp.mapping.scroll_docs(-4),
+		["<C-f>"] = cmp.mapping.scroll_docs(4),
+		["<C-Space>"] = cmp.mapping.complete(),
+		["<CR>"] = cmp.mapping.confirm({
+			behavior = cmp.ConfirmBehavior.Replace,
+			select = true,
+		}),
+		["<Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_next_item()
+			elseif luasnip.expand_or_jumpable() then
+				luasnip.expand_or_jump()
+			elseif has_words_before() then
+				cmp.complete()
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
+		["<S-Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item()
+			elseif luasnip.jumpable(-1) then
+				luasnip.jump(-1)
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
+	}),
+	formatting = {
+		fields = { "kind", "abbr", "menu" },
+		format = require("lspkind").cmp_format({
+			mode = "symbol",
+		}),
+	},
+	sources = cmp.config.sources({
+		{ name = "nvim_lsp_signature_help" },
+		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
+		{ name = "buffer" },
+		{ name = "nvim_lua" },
+		{ name = "path" },
+		{ name = "emoji" },
+		{ name = "calc" },
+	}),
+	confirm_opts = {
+		behavior = cmp.ConfirmBehavior.Replace,
+		select = false,
+	},
+	experimental = {
+		native_menu = false,
+		ghost_text = false,
+	},
+})
+
+cmp.setup.cmdline(":", {
+	sources = {
+		{ name = "cmdline" },
+	},
+})
+
+cmp.setup.cmdline("/", {
+	sources = {
+		{ name = "buffer" },
+		{ name = "path" },
+	},
+})
+
+cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done({ map_char = { tex = "" } }))

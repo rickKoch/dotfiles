@@ -134,6 +134,8 @@ alias prikey="more ~/.ssh/id_ed25519 | xclip -selection clipboard | echo '=> Pri
 alias ans=ansible
 alias ap=ansible-playbook
 
+alias gip="ip -json route get 8.8.8.8 | jq -r '.[].prefsrc'"
+
 # ----------------------- docker ----------------------
 
 alias dk='docker'
@@ -164,7 +166,6 @@ alias dcouns="dcou --no-start"
 # ----------------------- git ----------------------
 
 alias g='git'
-alias get='git'
 
 # add
 alias ga='git add'
