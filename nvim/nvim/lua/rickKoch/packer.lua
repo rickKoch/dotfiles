@@ -141,7 +141,7 @@ local function packer_startup()
     "folke/trouble.nvim",
     requires = "kyazdani42/nvim-web-devicons",
     config = function()
-     equire "trouble".setup()
+     require "trouble".setup()
     end
   }
 

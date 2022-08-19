@@ -4,7 +4,6 @@ local function set_augroup()
   vim.api.nvim_command("autocmd FileType markdown setlocal wrap")
   vim.api.nvim_command("augroup END")
 
-
   vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     pattern = "*.dockerfile",
     command = "set ft=dockerfile",
