@@ -11,7 +11,7 @@ lspstatus.register_progress()
 
 local capabilities = vim.tbl_extend(
   "keep",
-  cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()) or {},
+  cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()) or {},
   lspstatus.capabilities
 )
 capabilities.textDocument.completion.completionItem = {

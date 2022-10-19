@@ -96,6 +96,7 @@ local function set_vim_o()
   vim.cmd('set updatetime=300')
   vim.cmd('set nobackup')
   vim.cmd('set noswapfile')
+  vim.cmd('set colorcolumn=80')
 end
 
 local function set_vim_wo()
