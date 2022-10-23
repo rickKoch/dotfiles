@@ -11,6 +11,7 @@ local function packer_verify()
   end
 end
 
+
 local function packer_startup()
   if packer == nil then
     packer = require 'packer'
@@ -63,6 +64,8 @@ local function packer_startup()
       "saadparwaiz1/cmp_luasnip",
       "L3MON4D3/LuaSnip",
       "rafamadriz/friendly-snippets",
+
+      "mhartington/formatter.nvim"
     },
     config = function()
       require("lspkind").init()

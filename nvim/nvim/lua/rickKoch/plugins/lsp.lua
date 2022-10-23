@@ -57,7 +57,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
   buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", opts)
   buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-  buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+  buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
   buf_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
 
   if client.server_capabilities.document_formatting and client.name ~= "sumneko_lua" then
@@ -99,6 +99,219 @@ require("mason-lspconfig").setup({
 })
 
 local lspconfig = require("lspconfig")
+
+local eslint = {
+  lintCommand = "eslint_d -f visualstudio --stdin --stdin-filename ${INPUT}",
+  lintFormats = {"%f(%l,%c): %tarning %m", "%f(%l,%c): %trror %m"},
+  lintStdin = true,
+  lintIgnoreExitCode = true,
+  lintSource = "eslint",
+  formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename ${INPUT}",
+  formatStdin = true
+}
+
+local shellcheck = {
+  lintCommand = "shellcheck -f gcc -x -",
+  lintStdin = true,
+  lintFormats = {
+    "%f:%l:%c: %trror: %m", "%f:%l:%c: %tarning: %m", "%f:%l:%c: %tote: %m"
+  },
+  lintSource = "shellcheck"
+}
+
+local prettier = {
+  formatCommand = 'prettierd "${INPUT}"',
+  formatStdin = true
+}
+
+local jq = {
+  lintCommand = "jq .",
+  lintFormats = {"parse %trror: %m at line %l, column %c"},
+  lintSource = "jq"
+}
+
+local function eslint_config_exists()
+  local eslintrc = vim.fn.glob(".eslintrc*", 0, 1)
+
+  if not vim.tbl_isempty(eslintrc) then
+    return true
+  end
+
+  if vim.fn.filereadable("package.json") then
+    if vim.fn.json_decode(vim.fn.readfile("package.json"))["eslintConfig"] then
+      return true
+    end
+  end
+
+  return false
+end
+
+lspconfig.efm.setup {
+  on_attach = on_attach,
+  root_dir = function()
+    if not eslint_config_exists() then
+      return nil
+    end
+    return vim.fn.getcwd()
+  end,
+  settings = {
+    languages = {
+      css = {prettier},
+      html = {prettier},
+      javascript = {prettier, eslint},
+      javascriptreact = {prettier, eslint},
+      json = {prettier, jq},
+      markdown = {prettier},
+      pandoc = {prettier},
+      sh = {shellcheck},
+      typescript = {prettier, eslint},
+      typescriptreact = {prettier, eslint},
+      yaml = {prettier},
+      ["javascript.jsx"] = {eslint},
+      ["typescript.tsx"] = {eslint},
+    }
+  },
+  filetypes = {
+    "javascript",
+    "javascriptreact",
+    "javascript.jsx",
+    "typescript",
+    "typescript.tsx",
+    "typescriptreact"
+  },
+}
+
+lspconfig.tsserver.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  init_options = {usePlaceholders = true}
+}
+
+--lspconfig.diagnosticls.setup {
+  --filetypes = {"javascript", "javascriptreact", "typescript", "typescriptreact", "css"},
+  --init_options = {
+    --filetypes = {
+      --javascript = "eslint",
+      --typescript = "eslint",
+      --javascriptreact = "eslint",
+      --typescriptreact = "eslint"
+    --},
+    --linters = {
+      --eslint = {
+        --sourceName = "eslint",
+        --command = "./node_modules/.bin/eslint",
+        --rootPatterns = {
+          --".eslitrc.js",
+          --"package.json"
+        --},
+        --debounce = 100,
+        --args = {
+          --"--cache",
+          --"--stdin",
+          --"--stdin-filename",
+          --"%filepath",
+          --"--format",
+          --"json"
+        --},
+        --parseJson = {
+          --errorsRoot = "[0].messages",
+          --line = "line",
+          --column = "column",
+          --endLine = "endLine",
+          --endColumn = "endColumn",
+          --message = "${message} [${ruleId}]",
+          --security = "severity"
+        --},
+        --securities = {
+          --[2] = "error",
+          --[1] = "warning"
+        --}
+      --}
+    --}
+  --}
+--}
+
+require("formatter").setup(
+  {
+    logging = true,
+    filetype = {
+      typescriptreact = {
+        -- prettier
+        function()
+          return {
+            exe = "prettier",
+            args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
+            stdin = true
+          }
+        end
+      },
+      typescript = {
+        -- prettier
+        function()
+          return {
+            exe = "prettier",
+            args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
+            stdin = true
+          }
+        end
+        -- linter
+        -- function()
+        --   return {
+        --     exe = "eslint",
+        --     args = {
+        --       "--stdin-filename",
+        --       vim.api.nvim_buf_get_name(0),
+        --       "--fix",
+        --       "--cache"
+        --     },
+        --     stdin = false
+        --   }
+        -- end
+      },
+      javascript = {
+        -- prettier
+        function()
+          return {
+            exe = "prettier",
+            args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
+            stdin = true
+          }
+        end
+      },
+      javascriptreact = {
+        -- prettier
+        function()
+          return {
+            exe = "prettier",
+            args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
+            stdin = true
+          }
+        end
+      },
+      json = {
+        -- prettier
+        function()
+          return {
+            exe = "prettier",
+            args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
+            stdin = true
+          }
+        end
+      },
+      lua = {
+        -- luafmt
+        function()
+          return {
+            exe = "luafmt",
+            args = {"--indent-count", 2, "--stdin"},
+            stdin = true
+          }
+        end
+      }
+    }
+  }
+)
+
 lspconfig.gopls.setup({
   capabilities = capabilities,
   on_attach = on_attach,

@@ -23,10 +23,10 @@ if ! [ -x "$(command -v xmllint)" ]; then
   exit
 fi
 
-if ! [ -x "$(command -v /usr/bin/dateutils.ddiff)" ]; then
-  printf "\n${RED}dateutils not found in path. Please install it to continue!${NC}\n"
-  exit
-fi
+# if ! [ -x "$(command -v /usr/bin/dateutils.ddiff)" ]; then
+  # printf "\n${RED}dateutils not found in path. Please install it to continue!${NC}\n"
+  # exit
+# fi
 
 # Get newest Neovim Nightly info
 wget https://github.com/neovim/neovim/releases/tag/nightly -q -O - > /tmp/nvim28dce75c-4317-4006-a103-8069d573e2b2

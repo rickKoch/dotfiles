@@ -7,6 +7,10 @@ local function init()
     view = {
       side = "left",
     },
+    update_focused_file = {
+      enable = true,
+      update_root = true,
+    }
   }
 
   require'nvim-tree'.setup(opts)
