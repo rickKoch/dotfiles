@@ -63,7 +63,7 @@ local function packer_startup()
       -- snip x cmp
       "saadparwaiz1/cmp_luasnip",
       "L3MON4D3/LuaSnip",
-      "rafamadriz/friendly-snippets",
+      --"rafamadriz/friendly-snippets",
 
       "mhartington/formatter.nvim"
     },
@@ -195,6 +195,8 @@ local function packer_startup()
       require 'rickKoch.plugins.code_action_menu'.init()
     end
   }
+
+  use 'simrat39/rust-tools.nvim'
 end
 
 local function init()

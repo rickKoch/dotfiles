@@ -1,0 +1,80 @@
+local cmd = vim.api.nvim_command
+local fn = vim.fn
+local packer = nil
+
+local function packer_verify()
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({ 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path })
+    cmd 'packadd packer.nvim'
+  end
+end
+
+packer_verify()
+
+if packer == nil then
+  packer = require 'packer'
+  packer.init()
+end
+
+local use = packer.use
+packer.reset()
+
+
+require("rickKoch.options")
+require("rickKoch.keymaps")
+require("rickKoch.autocommands")
+
+--
+-- UI
+--
+require("rickKoch.colorscheme")
+require("nvim-web-devicons").setup()
+require("rickKoch.notify")
+require("rickKoch.bufferline")
+require("rickKoch.lualine")
+require("rickKoch.session")
+
+--
+-- BASIC
+--
+require("rickKoch.indent")
+require("gitsigns").setup()
+require("todo-comments").setup({
+  highlight = {
+    keyword = "bg",
+  },
+})
+require("dressing").setup({})
+require("fidget").setup({
+  text = { spinner = "dots_pulse" },
+})
+require("rickKoch.test")
+require("rickKoch.harpoon")
+require("rickKoch.telescope")
+require("rickKoch.fugitive")
+require("rickKoch.tree")
+require("rickKoch.bufremove")
+require("auto-hlsearch").setup()
+
+--
+-- CODING
+--
+require("neodev").setup({})
+require("luasnip").setup({
+  -- see: https://github.com/L3MON4D3/LuaSnip/issues/525
+  region_check_events = "InsertEnter",
+  delete_check_events = "InsertLeave",
+})
+require("luasnip.loaders.from_vscode").lazy_load()
+require("nvim-autopairs").setup({ check_ts = true })
+require("nvim-ts-autotag").setup({ enable = true })
+require("rickKoch.lsp")
+require("rickKoch.cmp")
+require("nvim-surround").setup()
+require("Comment").setup()
+require("rickKoch.treesitter")
+require("rickKoch.debug")
+require("rickKoch.other")
+

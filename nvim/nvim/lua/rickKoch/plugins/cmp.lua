@@ -8,11 +8,11 @@ local has_words_before = function()
 end
 
 cmp.setup({
-	snippet = {
-		expand = function(args)
-			luasnip.lsp_expand(args.body)
-		end,
-	},
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
 	window = {
 		completion = cmp.config.window.bordered(),
 		documentation = cmp.config.window.bordered(),
@@ -33,8 +33,8 @@ cmp.setup({
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
-			elseif luasnip.expand_or_jumpable() then
-				luasnip.expand_or_jump()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
 			elseif has_words_before() then
 				cmp.complete()
 			else
@@ -44,8 +44,8 @@ cmp.setup({
 		["<S-Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_prev_item()
-			elseif luasnip.jumpable(-1) then
-				luasnip.jump(-1)
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
 			else
 				fallback()
 			end
@@ -60,7 +60,7 @@ cmp.setup({
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp_signature_help" },
 		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
+    { name = "luasnip" },
 		{ name = "buffer" },
 		{ name = "nvim_lua" },
 		{ name = "path" },

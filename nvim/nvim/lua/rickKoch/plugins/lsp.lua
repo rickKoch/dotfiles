@@ -58,6 +58,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", opts)
   buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
   buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
+  buf_set_keymap("n", "]s", "<cmd>lua vim.diagnostic.show()<CR>", opts)
   buf_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
 
   if client.server_capabilities.document_formatting and client.name ~= "sumneko_lua" then
@@ -98,11 +99,54 @@ require("mason-lspconfig").setup({
   automatic_installation = true,
 })
 
+local opts = {
+  -- rust-tools options
+  tools = {
+    autoSetHints = true,
+    hover_with_actions = true,
+    inlay_hints = {
+      show_parameter_hints = true,
+      parameter_hints_prefix = "",
+      other_hints_prefix = "",
+    },
+  },
+
+  -- all the opts to send to nvim-lspconfig
+  -- these override the defaults set by rust-tools.nvim
+  -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+  -- https://rust-analyzer.github.io/manual.html#features
+  server = {
+    on_attach = on_attach,
+    settings = {
+      ["rust-analyzer"] = {
+        assist = {
+          importEnforceGranularity = true,
+          importPrefix = "crate"
+        },
+        cargo = {
+          allFeatures = true
+        },
+        checkOnSave = {
+          -- default: `cargo check`
+          command = "clippy"
+        },
+      },
+      inlayHints = {
+        lifetimeElisionHints = {
+          enable = true,
+          useParameterNames = true
+        },
+      },
+    }
+  },
+}
+require('rust-tools').setup(opts)
+
 local lspconfig = require("lspconfig")
 
 local eslint = {
   lintCommand = "eslint_d -f visualstudio --stdin --stdin-filename ${INPUT}",
-  lintFormats = {"%f(%l,%c): %tarning %m", "%f(%l,%c): %trror %m"},
+  lintFormats = { "%f(%l,%c): %tarning %m", "%f(%l,%c): %trror %m" },
   lintStdin = true,
   lintIgnoreExitCode = true,
   lintSource = "eslint",
@@ -126,7 +170,7 @@ local prettier = {
 
 local jq = {
   lintCommand = "jq .",
-  lintFormats = {"parse %trror: %m at line %l, column %c"},
+  lintFormats = { "parse %trror: %m at line %l, column %c" },
   lintSource = "jq"
 }
 
@@ -156,19 +200,19 @@ lspconfig.efm.setup {
   end,
   settings = {
     languages = {
-      css = {prettier},
-      html = {prettier},
-      javascript = {prettier, eslint},
-      javascriptreact = {prettier, eslint},
-      json = {prettier, jq},
-      markdown = {prettier},
-      pandoc = {prettier},
-      sh = {shellcheck},
-      typescript = {prettier, eslint},
-      typescriptreact = {prettier, eslint},
-      yaml = {prettier},
-      ["javascript.jsx"] = {eslint},
-      ["typescript.tsx"] = {eslint},
+      css = { prettier },
+      html = { prettier },
+      javascript = { prettier, eslint },
+      javascriptreact = { prettier, eslint },
+      json = { prettier, jq },
+      markdown = { prettier },
+      pandoc = { prettier },
+      sh = { shellcheck },
+      typescript = { prettier, eslint },
+      typescriptreact = { prettier, eslint },
+      yaml = { prettier },
+      ["javascript.jsx"] = { eslint },
+      ["typescript.tsx"] = { eslint },
     }
   },
   filetypes = {
@@ -184,51 +228,51 @@ lspconfig.efm.setup {
 lspconfig.tsserver.setup {
   on_attach = on_attach,
   capabilities = capabilities,
-  init_options = {usePlaceholders = true}
+  init_options = { usePlaceholders = true }
 }
 
 --lspconfig.diagnosticls.setup {
-  --filetypes = {"javascript", "javascriptreact", "typescript", "typescriptreact", "css"},
-  --init_options = {
-    --filetypes = {
-      --javascript = "eslint",
-      --typescript = "eslint",
-      --javascriptreact = "eslint",
-      --typescriptreact = "eslint"
-    --},
-    --linters = {
-      --eslint = {
-        --sourceName = "eslint",
-        --command = "./node_modules/.bin/eslint",
-        --rootPatterns = {
-          --".eslitrc.js",
-          --"package.json"
-        --},
-        --debounce = 100,
-        --args = {
-          --"--cache",
-          --"--stdin",
-          --"--stdin-filename",
-          --"%filepath",
-          --"--format",
-          --"json"
-        --},
-        --parseJson = {
-          --errorsRoot = "[0].messages",
-          --line = "line",
-          --column = "column",
-          --endLine = "endLine",
-          --endColumn = "endColumn",
-          --message = "${message} [${ruleId}]",
-          --security = "severity"
-        --},
-        --securities = {
-          --[2] = "error",
-          --[1] = "warning"
-        --}
-      --}
-    --}
-  --}
+--filetypes = {"javascript", "javascriptreact", "typescript", "typescriptreact", "css"},
+--init_options = {
+--filetypes = {
+--javascript = "eslint",
+--typescript = "eslint",
+--javascriptreact = "eslint",
+--typescriptreact = "eslint"
+--},
+--linters = {
+--eslint = {
+--sourceName = "eslint",
+--command = "./node_modules/.bin/eslint",
+--rootPatterns = {
+--".eslitrc.js",
+--"package.json"
+--},
+--debounce = 100,
+--args = {
+--"--cache",
+--"--stdin",
+--"--stdin-filename",
+--"%filepath",
+--"--format",
+--"json"
+--},
+--parseJson = {
+--errorsRoot = "[0].messages",
+--line = "line",
+--column = "column",
+--endLine = "endLine",
+--endColumn = "endColumn",
+--message = "${message} [${ruleId}]",
+--security = "severity"
+--},
+--securities = {
+--[2] = "error",
+--[1] = "warning"
+--}
+--}
+--}
+--}
 --}
 
 require("formatter").setup(
@@ -240,7 +284,7 @@ require("formatter").setup(
         function()
           return {
             exe = "prettier",
-            args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
+            args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
             stdin = true
           }
         end
@@ -250,7 +294,7 @@ require("formatter").setup(
         function()
           return {
             exe = "prettier",
-            args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
+            args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
             stdin = true
           }
         end
@@ -273,7 +317,7 @@ require("formatter").setup(
         function()
           return {
             exe = "prettier",
-            args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
+            args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
             stdin = true
           }
         end
@@ -283,7 +327,7 @@ require("formatter").setup(
         function()
           return {
             exe = "prettier",
-            args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
+            args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
             stdin = true
           }
         end
@@ -293,7 +337,7 @@ require("formatter").setup(
         function()
           return {
             exe = "prettier",
-            args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
+            args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
             stdin = true
           }
         end
@@ -303,7 +347,7 @@ require("formatter").setup(
         function()
           return {
             exe = "luafmt",
-            args = {"--indent-count", 2, "--stdin"},
+            args = { "--indent-count", 2, "--stdin" },
             stdin = true
           }
         end
@@ -313,11 +357,21 @@ require("formatter").setup(
 )
 
 lspconfig.gopls.setup({
+  cmd = {'gopls'},
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
     gopls = {
       gofumpt = true,
+      analyses = {
+        nilness = true,
+        unusedparams = true,
+        unusedwrite = true,
+        useany = true,
+      },
+      experimentalPostfixCompletions = true,
+      staticcheck = true,
+      usePlaceholders = true,
     },
   },
   flags = {
@@ -396,10 +450,10 @@ lspconfig.sumneko_lua.setup({
   },
 })
 
-lspconfig.rust_analyzer.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
+--lspconfig.rust_analyzer.setup({
+--capabilities = capabilities,
+--on_attach = on_attach,
+--})
 
 lspconfig.prosemd_lsp.setup({
   capabilities = capabilities,

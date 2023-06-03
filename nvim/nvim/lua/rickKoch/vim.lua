@@ -74,7 +74,7 @@ local function set_vim_o()
     scrolloff = 3,
     softtabstop = 2,
     showmode = false,
-    termguicolors = true
+    termguicolors = true,
   }
 
   -- Generic vim.o
@@ -97,6 +97,7 @@ local function set_vim_o()
   vim.cmd('set nobackup')
   vim.cmd('set noswapfile')
   vim.cmd('set colorcolumn=80')
+  vim.cmd('set ignorecase')
 end
 
 local function set_vim_wo()
