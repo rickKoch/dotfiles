@@ -38,10 +38,10 @@ alt - 8 : yabai -m space --focus 8
 alt - 9 : yabai -m space --focus 9
 alt - 0 : yabai -m space --focus 0
 
-cmd - 1 : yabai -m space --focus 10
-cmd - 2 : yabai -m space --focus 11
-cmd - 3 : yabai -m space --focus 12
-cmd - 4 : yabai -m space --focus 13
+# cmd - 1 : yabai -m space --focus 10
+# cmd - 2 : yabai -m space --focus 11
+# cmd - 3 : yabai -m space --focus 12
+# cmd - 4 : yabai -m space --focus 13
 
 # ------- send window to desktop and follow focus ----------- #
 # shift + cmd - z : yabai -m window --space next; yabai -m space --focus next
@@ -84,9 +84,9 @@ alt - t : yabai -m window --toggle float;\
           yabai -m window --grid 4:4:1:1:2:2
 
 # toggle sticky(+float), topmost, picture-in-picture
-alt - p : yabai -m window --toggle sticky;\
-          yabai -m window --toggle topmost;\
-          yabai -m window --toggle pip
+# cmd - p : yabai -m window --toggle sticky;\
+#           yabai -m window --toggle topmost;\
+#           yabai -m window --toggle pip
 
 # ---------------- Window Size --------------------- #
 # increase window size
@@ -124,3 +124,13 @@ alt - e : yabai -m window --toggle split
 alt - return : osascript -e 'tell application "iTerm2" to create window with default profile command ""' || open -na iTerm
 # alt - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
 shift + alt - c : open -na "Google Chrome" --args --new-window
+
+alt - z : yabai --restart-service
+alt - x : brew services restart skhd
+
+alt - tab : yabai -m window --focus stack.next || yabai -m window --focus stack.first
+
+# alt - up : yabai -m window --stack north
+# alt - right : yabai -m window --stack east
+# alt - down : yabai -m window --stack south
+# alt - left : yabai -m window --stack west

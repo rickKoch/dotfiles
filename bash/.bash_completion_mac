@@ -1,0 +1,19 @@
+#!/bin/bash
+
+type gh &>/dev/null && . <(gh completion -s bash)
+type kubectl &>/dev/null && . <(kubectl completion bash)
+type yq &>/dev/null && . <(yq shell-completion bash)
+type helm &>/dev/null && . <(helm completion bash)
+type docker &>/dev/null && . ~/completion/docker.completion.bash
+
+# type k &>/dev/null && complete -o default -F __start_kubectl k
+
+if [[ $(type -t compopt) = "builtin" ]]; then
+    complete -o default -F __start_kubectl k
+else
+    complete -o default -o nospace -F __start_kubectl k
+fi
+
+source ~/completion/tmux.complition.bash
+# source ~/completion/docker-compose.completion.bash
+
