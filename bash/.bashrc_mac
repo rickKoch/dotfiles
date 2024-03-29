@@ -1,0 +1,412 @@
+case $- in
+*i*) ;; # interactive
+*) return ;;
+esac
+
+# ----------------------- environment variables ----------------------
+#                           (also see envx)
+
+# export GITUSER="$USER"
+export GITUSER="rickKoch"
+export DOTFILES="$HOME/Repos/github.com/$GITUSER/dotfiles"
+export GHREPOS="$HOME/Repos/github.com/$GITUSER/"
+export HELP_BROWSER=lynx
+export DOCKER_ID="rickkoch"
+export SCRIPTS="$DOTFILES/scripts"
+export DESKTOP="$HOME/Desktop"
+export DOCUMENTS="$HOME/Documents"
+export DOWNLOADS="$HOME/Downloads"
+export TEMPLATES="$HOME/Templates"
+export PUBLIC="$HOME/Public"
+export PRIVATE="$HOME/Private"
+export PICTURES="$HOME/Pictures"
+export MUSIC="$HOME/Music"
+export VIDEOS="$HOME/Videos"
+export PDFS="$DOCUMENTS/PDFS"
+export VIRTUALMACHINES="$HOME/VirtualMachines"
+export WORKSPACES="$HOME/Workspaces" # container home dirs for mounting
+export ZETDIR="$GHREPOS/notes"
+export TERM=xterm-256color
+export HRULEWIDTH=73
+export EDITOR=vi
+export VISUAL=vi
+export EDITOR_PREFIX=vi
+export PYTHONDONTWRITEBYTECODE=1
+export PYENV_ROOT="$HOME/.pyenv"
+export GPG_TTY=$(tty)
+
+######### NE GI KORISTI VIE #######################
+#export CI=false
+#export NX_CLOUD_DISTRIBUTED_EXECUTION=flase
+#export NX_VERBOSE_LOGGING=false
+##################################################
+#nx affected --base=8f700de9f1440cfbc4dbc448bca7fe19c5816114 --head=b1044c847071edb9882a9727f2f3779323781a41 --target=lint --parallel=2
+export NX_HEAD=b1044c847071edb9882a9727f2f3779323781a41
+export NX_BASE=8f700de9f1440cfbc4dbc448bca7fe19c5816114
+export NX_BRANCH=730
+export POSTGRES_DB_URL=postgresql://postgres:secret@localhost:5432/pom
+export HEALTH_CHECK_PUBLIC_URL=test
+# export NODE_OPTIONS="--max-old-space-size=8192"
+#export NX_BASE=origin/main~1
+#export NX_HEAD=origin/main
+#export NX_BRANCH=main
+unset CI
+unset NX_CLOUD_DISTRIBUTED_EXECUTION
+unset NX_VERBOSE_LOGGING
+# unset NX_HEAD
+# unset NX_BASE
+# unset NX_BRANCH
+# unset POSTGRES_DB_URL
+# unset HEALTH_CHECK_PUBLIC_URL
+
+# export NEXT_PUBLIC_ENVIRONMENT=production
+unset NEXT_PUBLIC_ENVIRONMENT
+
+# export GOOGLE_APPLICATION_CREDENTIALS=
+#export GOOGLE_APPLICATION_CREDENTIALS=/Users/risto/.config/gcloud/application_default_credentials.json
+#export GOOGLE_APPLICATION_CREDENTIALS=/Users/risto/Documents/peace-of-mind/jf-pdct-peaceofmind-dev-4f13deffede6.json
+unset GOOGLE_APPLICATION_CREDENTIALS
+
+export OTEL_EXPORTER_OTLP_ENDPOINT="https://api.honeycomb.io"
+export OTEL_EXPORTER_OTLP_HEADERS="x-honeycomb-team=0f4F8TnJNGuYoitPW9i5gH"
+export OTEL_SERVICE_NAME="testing-service"
+
+#export PUBSUB_EMULATOR_HOST=localhost:8085
+export PUBSUB_PROJECT_ID=magpie-test-project
+export GOOGLE_CLOUD_PROJECT=magpie-test-project
+export PUBSUB_EMULATOR_HOST=0.0.0.0:8085
+
+# export AUTH0_CLIENT_ID=raqnIuETSVuuJ8XkcnUEyca88HxKoy6K
+# export AUTH0_CLIENT_SECRET=nRkqtfklUXalf0Up7eLZ9O1d4Gqfcj2xh9xI3XfcPxuJ8-9UgoSv0rWqAGnIWXyP
+unset AUTH0_CLIENT_ID
+unset AUTH0_CLIENT_SECRET
+
+test -d ~/.vim/spell && export VIMSPELL=(~/.vim/spell/*.add)
+
+# export GOPRIVATE="github.com/$GITUSER/*,gitlab.com/$GITUSER/*"
+# export GOPATH=~/go/
+# export GOBIN=/usr/local/go/bin
+# export GOPROXY=direct
+# export CGO_ENABLED=0
+
+# node version manager
+# export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+# export NVM_DIR=~/.nvm
+# source $(brew --prefix nvm)/nvm.sh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+# ------------------------------- pager ------------------------------
+
+# if test -x /usr/bin/lesspipe; then
+#   export LESSOPEN="| /usr/bin/lesspipe %s";
+#   export LESSCLOSE="/usr/bin/lesspipe %s %s";
+# fi
+#
+# export LESS_TERMCAP_mb="$(printf '\e[1;31m')" \
+# export LESS_TERMCAP_md="$(printf '\e[1;31m')" \
+# export LESS_TERMCAP_me="$(printf '\e[0m')" \
+# export LESS_TERMCAP_se="$(printf '\e[0m')" \
+# export LESS_TERMCAP_so="$(printf '\e[1;44;33m')" \
+# export LESS_TERMCAP_ue="$(printf '\e[0m')" \
+# export LESS_TERMCAP_us="$(printf '\e[1;32m')" \
+
+# ------------------------------- path -------------------------------
+
+pathappend() {
+  declare arg
+  for arg in "$@"; do
+    test -d "${arg}" || continue
+    PATH=${PATH//:${arg}:/:}
+    PATH=${PATH/#${arg}:/}
+    PATH=${PATH/%:${arg}/}
+    export PATH="${PATH:+"${PATH}:"}${arg}"
+  done
+}
+
+pathprepend() {
+  for ARG in "$@"; do
+    test -d "${ARG}" || continue
+    PATH=${PATH//:${ARG}:/:}
+    PATH=${PATH/#${ARG}:/}
+    PATH=${PATH/%:${ARG}/}
+    export PATH="${ARG}${PATH:+":${PATH}"}"
+  done
+}
+
+# override as needed in .bashrc_{personal,private,work}
+# several utilities depend on SCRIPTS being in a github repo
+# export SCRIPTS=~/.local/bin/scripts
+mkdir -p "$SCRIPTS" &>/dev/null
+
+# remember last arg will be first in path
+pathprepend \
+  /usr/local/go/bin \
+  ~/.local/bin \
+  "$SCRIPTS"  \
+  ~/google-cloud-sdk/bin/gcloud \
+  ~/.cargo \
+  /usr/local/opt/nvm/versions/node/v14.19.1/bin \
+  "$PYENV_ROOT/bin" \
+  ~/go/bin/ \
+  ~/nvim/bin \
+  /Users/risto/google-cloud-sdk/bin
+  #/Users/risto/.pyenv/shims
+  # /usr/local/opt/nvm/versions/node/v16.14.0/bin
+
+pathappend \
+  /usr/local/opt/coreutils/libexec/gnubin \
+  /mingw64/bin \
+  /usr/local/bin \
+  /usr/local/sbin \
+  /usr/local/games \
+  /usr/games \
+  /usr/sbin \
+  /usr/bin \
+  /snap/bin \
+  /sbin \
+  /bin
+
+# ------------------------------ cdpath ------------------------------
+
+export CDPATH=.:\
+~/Repos/github.com:\
+~/Repos/github.com/$GITUSER:\
+~/Repos/github.com/$GITUSER/dotfiles:\
+~/Repos/gitlab.com:\
+~/Repos/gitlab.com/ludotech:\
+~/Repos/gitlab.com/jellyfish:\
+~/Repos:\
+/media/$USER:\
+~
+
+# ------------------------ bash shell options ------------------------
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell
+# shopt -s globstar
+shopt -s expand_aliases
+shopt -s dotglob
+shopt -s extglob
+
+# ------------------------------ history -----------------------------
+
+export HISTCONTROL=ignoreboth
+export HISTSIZE=5000
+export HISTFILESIZE=10000
+
+set -o vi
+bind -m vi-command 'Control-l: clear-screen'
+bind -m vi-insert 'Control-l: clear-screen'
+# Append to the Bash history file, rather than overwriting it
+shopt -s histappend
+
+# --------------------------- smart prompt ---------------------------
+
+PROMPT_LONG=20
+PROMPT_MAX=95
+PROMPT_AT=@
+
+__ps1() {
+  local P='$'
+
+  if test -n "${ZSH_VERSION}"; then
+    local r='%F{red}'
+    #local g='%F{black}'
+    local h='%F{blue}'
+    local u='%F{yellow}'
+    local p='%F{yellow}'
+    local w='%F{magenta}'
+    local b='%F{cyan}'
+    local x='%f'
+  else
+    local r='\[\e[31m\]'
+    #local g='\[\e[1;35m\]'
+    local h='\[\e[1;34m\]'
+    local u='\[\e[36m\]'
+    local p='\[\e[33m\]'
+    local w='\[\e[35m\]'
+    local b='\[\e[36m\]'
+    local x='\[\e[0m\]'
+  fi
+
+  if test "${EUID}" == 0; then
+    P='#'
+    if test -n "${ZSH_VERSION}"; then
+      u="$F{red}"
+    else
+      u=$r
+    fi
+    p=$u
+  fi
+
+  local dir;
+  if test "$PWD" = "$HOME"; then
+    dir='~'
+  else
+    dir="${PWD##*/}"
+    if test "${dir}" = _; then
+      dir=${PWD#*${PWD%/*/_}}
+      dir=${dir#/}
+    elif test "${dir}" = work; then
+      dir=${PWD#*${PWD%/*/work}}
+      dir=${dir#/}
+    fi
+  fi
+
+  local B=$(git branch --show-current 2>/dev/null)
+  test "$dir" = "$B" && B='.'
+  local countme="$USER@$(hostname):$dir($B)\$ "
+
+  [[ $B = master || $B = main ]] && b="$r"
+  [[ -n "$B" ]] && B="$u($b$B$u)"
+
+  short="\u$PROMPT_AT$h\h:$w$dir$B$p$P$x "
+  long="╔ \u$PROMPT_AT$h\h:$w$dir$B\n╚ $p$P$x "
+  double="╔ \u$PROMPT_AT$h\h:$w$dir\n║ $B\n╚ $p$P$x "
+  #short="$u\u$u$PROMPT_AT$h\h$u:$w$dir$B$p$P$x "
+  #long="$u\u$u$PROMPT_AT$h\h$u:$w$dir$B\n$p$P$x "
+  #double="$u\u$u$PROMPT_AT$h\h$u:$w$dir\n $B\n $p$P$x "
+
+  if test ${#countme} -gt "${PROMPT_MAX}"; then
+    PS1="$double"
+  elif test ${#countme} -gt "${PROMPT_LONG}"; then
+    PS1="$long"
+  else
+    PS1="$short"
+  fi
+}
+
+PROMPT_COMMAND="__ps1"
+
+# ----------------------------- keyboard -----------------------------
+
+test -n "$DISPLAY" && setxkbmap -option caps:escape &>/dev/null
+
+# ---------------------- import files -------------------------------
+
+for file in ~/.{bash_functions,bash_aliases,bash_dockerfunctions,bash_completion,bash_private}; do
+	if [[ -r "$file" ]] && [[ -f "$file" ]]; then
+		# shellcheck source=/dev/null
+		source "$file"
+	fi
+done
+unset file
+# ----------------------------- functions ----------------------------
+
+envx() {
+  local envfile="$1"
+  if test ! -e "$envfile" ; then
+    if test ! -e ~/.env ; then
+      echo "file not found: $envfile"
+      return
+    fi
+    envfile=~/.env
+  fi
+  while IFS=$'\n' read -r line; do
+    name=${line%%=*}
+    value=${line#*=}
+    if [[ -z "${name}" || $name =~ ^# ]]; then
+      continue
+    fi
+    export "$name"="$value"
+  done <"${envfile}"
+} && export -f envx
+
+test -e ~/.env && envx ~/.env
+
+# ------------------------------ basah-completion ---------------------------------
+# Use bash-completion, if available
+if [ -f /usr/local/etc/bash_completion ]; then
+    . /usr/local/etc/bash_completion
+fi
+
+
+# ------------------------------ git-completion ---------------------------------
+if [ -f ~/.git-completion.bash ]; then
+	. ~/.git-completion.bash
+fi
+
+# ------------------------------ git-completion ---------------------------------
+if [ -f ~/.tt-completion ]; then
+	. ~/.tt-completion
+fi
+
+# ------------------------------ NVM ---------------------------------
+# https://github.com/nvm-sh/nvm
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# source /usr/share/nvm/init-nvm.sh
+#----------------------------------------------------------------------
+eval "$(pyenv init -)"
+
+# ------------------------------ Golang ---------------------------------
+function go_version {
+    if [ -f "go.mod" ]; then
+        v=$(grep -E '^go \d.+$' ./go.mod | grep -oE '\d.+$')
+        if [[ ! $(go version | grep "go$v") ]]; then
+          echo ""
+          echo "About to switch go version to: $v"
+          if ! command -v "$HOME/go/bin/go$v" &> /dev/null
+          then
+            echo "run: go install golang.org/dl/go$v@latest && go$v download && sudo cp \$(which go$v) \$(which go)"
+            return
+          fi
+          sudo cp $(which go$v) $(which go)
+        fi
+    fi
+}
+
+# ------------------------------ Rust ---------------------------------
+. "$HOME/.cargo/env"
+if [ ! -f "$HOME/.config/rustlang/autocomplete/rustup" ]; then
+  mkdir -p ~/.config/rustlang/autocomplete
+  rustup completions bash rustup >> ~/.config/rustlang/autocomplete/rustup
+fi
+source "$HOME/.config/rustlang/autocomplete/rustup"
+if ! command -v rust-analyzer &> /dev/null
+then
+  brew install rust-analyzer
+fi
+if ! cargo audit --version &> /dev/null; then
+  cargo install cargo-audit --features=fix
+fi
+if ! cargo nextest --version &> /dev/null; then
+  cargo install cargo-nextest
+fi
+if ! cargo fmt --version &> /dev/null; then
+  rustup component add rustfmt
+fi
+if ! cargo clippy --version &> /dev/null; then
+  rustup component add clippy
+fi
+if ! ls ~/.cargo/bin | grep 'cargo-upgrade' &> /dev/null; then
+  cargo install cargo-edit
+fi
+# ---------------------------------- McFly -----------------------------------
+# eval "$(mcfly init bash)"
+
+# pnpm
+export PNPM_HOME="/Users/risto/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# ---------------------------------- Starship --------------------------------
+eval "$(starship init bash)"
+
+#---------------------- vivid ------------------------------------------------
+ export LS_COLORS="$(vivid generate molokai)"
