@@ -2,7 +2,8 @@
 let skip_defaults_vim=1
 let mapleader=","
 set nocompatible
-set clipboard=unnamedplus
+set clipboard=unnamed
+" set clipboard=unnamedplus
 
 "####################### Vi Compatible (~/.exrc) #######################
 

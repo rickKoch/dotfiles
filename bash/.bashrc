@@ -1,4 +1,3 @@
-
 case $- in
 *i*) ;; # interactive
 *) return ;;
@@ -29,9 +28,9 @@ export WORKSPACES="$HOME/Workspaces" # container home dirs for mounting
 export ZETDIR="$GHREPOS/notes"
 export TERM=xterm-256color
 export HRULEWIDTH=73
-export EDITOR=vi
-export VISUAL=vi
-export EDITOR_PREFIX=vi
+export EDITOR=lvim
+export VISUAL=lvim
+export EDITOR_PREFIX=lvim
 export PYTHONDONTWRITEBYTECODE=1
 export KUBECONFIG=~/.kube/config
 
@@ -92,6 +91,7 @@ pathprepend \
   ~/.local/bin \
   ~/.local/bin/protoc/bin \
   ~/.cargo \
+  ~/nvim-linux64/bin \
   "$SCRIPTS"
 
 pathappend \
@@ -264,7 +264,7 @@ test -e ~/.env && envx ~/.env
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-source /usr/share/nvm/init-nvm.sh
+# source /usr/share/nvm/init-nvm.sh
 
 # ------------------------------ Cargo ---------------------------------
 . "$HOME/.cargo/env"
@@ -319,3 +319,9 @@ function go_version {
     #go install github.com/mgechev/revive@latest
 #fi
 #
+
+# ---------- LS COLORS --------
+source /home/rickkoch/.local/share/lscolors.sh
+
+#---------- starship --------
+eval "$(starship init bash)"

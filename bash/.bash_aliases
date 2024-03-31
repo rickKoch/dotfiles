@@ -65,6 +65,9 @@ alias bash_dock='vim $HOME/.bash_dockerfunctions'
 # vi and vim aliases on neovim
 which nvim &>/dev/null && alias vi=nvim && alias vim=nvim
 
+
+which lvim &>/dev/null && alias vi=lvim && alias vim=lvim
+
 # Trim new lines and copy to clipboard
 alias c="tr -d '\\n' | xclip -selection clipboard"
 
@@ -122,6 +125,7 @@ alias cp='cp -i'
 alias mv='mv -i'
 
 # better cat
+alias bat='batcat'
 alias cat='bat'
 
 # Pipe my public key to my clipboard.
