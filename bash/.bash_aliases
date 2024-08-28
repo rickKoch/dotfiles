@@ -67,6 +67,9 @@ which nvim &>/dev/null && alias vi=nvim && alias vim=nvim
 
 
 which lvim &>/dev/null && alias vi=lvim && alias vim=lvim
+alias rvi='nvim -u /home/rickkoch/Repos/github.com/rickKoch/dotfiles/nvim/nvim/simple/init.lua'
+
+alias yy='yazi'
 
 # Trim new lines and copy to clipboard
 alias c="tr -d '\\n' | xclip -selection clipboard"

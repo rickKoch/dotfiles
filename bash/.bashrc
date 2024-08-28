@@ -28,9 +28,9 @@ export WORKSPACES="$HOME/Workspaces" # container home dirs for mounting
 export ZETDIR="$GHREPOS/notes"
 export TERM=xterm-256color
 export HRULEWIDTH=73
-export EDITOR=lvim
-export VISUAL=lvim
-export EDITOR_PREFIX=lvim
+export EDITOR="nvim -u /home/rickkoch/Repos/github.com/rickKoch/dotfiles/nvim/nvim/simple/init.lua"
+export VISUAL="nvim -u /home/rickkoch/Repos/github.com/rickKoch/dotfiles/nvim/nvim/simple/init.lua"
+export EDITOR_PREFIX="nvim -u /home/rickkoch/Repos/github.com/rickKoch/dotfiles/nvim/nvim/simple/init.lua"
 export PYTHONDONTWRITEBYTECODE=1
 export KUBECONFIG=~/.kube/config
 
