@@ -25,9 +25,9 @@ local function options()
   vim.opt.expandtab = true
   vim.opt.smartindent = true
   vim.opt.shiftwidth = 2
-  vim.opt.softtabstop = 4
-  vim.opt.tabstop = 4
-  vim.opt.signcolumn = "yes"
+  vim.opt.softtabstop = 2
+  vim.opt.tabstop = 2
+  -- vim.opt.signcolumn = "yes"
   vim.opt.scrolloff = 10
   vim.opt.sidescrolloff = 10
   vim.opt.number = true
@@ -53,7 +53,7 @@ local function options()
   vim.opt.listchars = "eol:↲,tab:» ,trail:·,extends:<,precedes:>,conceal:┊,nbsp:␣"
   vim.opt.grepprg = "rg --vimgrep --smart-case --follow"
   vim.opt.background = "dark"
-  vim.opt.termguicolors = true
+  -- vim.opt.termguicolors = true
   vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
 
   vim.opt.shortmess:append("c")
@@ -84,8 +84,6 @@ local function keymaps()
   keymap("", "<Space>", "<Nop>", opts)
   vim.g.mapleader = " "
   vim.g.maplocalleader = " "
-  vim.g['copilot_no_tab_map'] = true
-  vim.g['copilot_assume_mapped'] = true
 
   -- Normal --
   -- disable Ex mode, I always enter in it by mistake
@@ -100,17 +98,11 @@ local function keymaps()
   keymap("n", "[q", ":cprevious<CR>zz", opts)
   keymap("n", "]q", ":cnext<CR>zz", opts)
 
-  -- Better window navigation
-  -- keymap("n", "<C-h>", "<C-w>h", opts)
-  -- keymap("n", "<C-j>", "<C-w>j", opts)
-  -- keymap("n", "<C-k>", "<C-w>k", opts)
-  -- keymap("n", "<C-l>", "<C-w>l", opts)
-
   -- Resize with arrows
-  keymap("n", "<A-Up>", ":resize +2<CR>", opts)
-  keymap("n", "<A-Down>", ":resize -2<CR>", opts)
-  keymap("n", "<A-Left>", ":vertical resize -2<CR>", opts)
-  keymap("n", "<A-Right>", ":vertical resize +2<CR>", opts)
+  keymap("n", "<C-k>", ":resize +2<CR>", opts)
+  keymap("n", "<C-j>", ":resize -2<CR>", opts)
+  keymap("n", "<C-h>", ":vertical resize -2<CR>", opts)
+  keymap("n", "<C-l>", ":vertical resize +2<CR>", opts)
 
   -- buffer nav
   keymap("n", "<S-l>", ":bnext<CR>", opts)
@@ -118,6 +110,8 @@ local function keymaps()
 
   -- save and quit
   keymap("n", "<leader>w", ":write<CR>", opts)
+  keymap("n", "<leader>q", ":quit<CR>", opts)
+  keymap("n", "<leader>e", ":Ex<CR>", opts)
 
   -- paste over without replacing default register
   keymap("n", "<leader>p", '"_dP', opts)
