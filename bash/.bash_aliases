@@ -3,6 +3,9 @@
 # remove all the aliases
 unalias -a
 
+# alias rvi='nvim -u /home/rickkoch/Repos/github.com/rickKoch/dotfiles/nvim/nvim/simple/init.lua'
+# which rvi &>/dev/null && alias vi=lvim && alias vim=nvim
+
 # grep with ignore case
 alias grep='grep -i --colour=auto'
 
@@ -54,20 +57,22 @@ alias chmox='chmod +x'
 alias update='source $HOME/.bashrc'
 
 # open bachrc file
-alias bashrc='vim $HOME/.bashrc'
+alias bashrc='nvim $HOME/.bashrc'
 # open .bash_functions file
-alias bash_aliases='vim $HOME/.bash_aliases'
+alias bash_aliases='nvim $HOME/.bash_aliases'
 # open .bash_functions file
-alias bash_func='vim $HOME/.bash_functions'
+alias bash_func='nvim $HOME/.bash_functions'
 # open .bash_functions file
-alias bash_dock='vim $HOME/.bash_dockerfunctions'
+alias bash_dock='nvim $HOME/.bash_dockerfunctions'
+# open i3 config file
+alias i3conf='nvim $HOME/.config/i3/config'
 
 # vi and vim aliases on neovim
 which nvim &>/dev/null && alias vi=nvim && alias vim=nvim
 
 
-which lvim &>/dev/null && alias vi=lvim && alias vim=lvim
-alias rvi='nvim -u /home/rickkoch/Repos/github.com/rickKoch/dotfiles/nvim/nvim/simple/init.lua'
+# which lvim &>/dev/null && alias vi=lvim && alias vim=lvim
+# which lvim &>/dev/null && alias vi=lvim
 
 alias yy='yazi'
 
@@ -383,3 +388,6 @@ alias kcdd='kubectl describe deployment'
 alias kcdn='kubectl describe node'
 alias kcgpan='kubectl get pods --all-namespaces'
 alias kcgdan='kubectl get deployments --all-namespaces'
+
+
+which lazygit &>/dev/null && alias ll=lazygit

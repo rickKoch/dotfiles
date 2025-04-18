@@ -53,7 +53,6 @@ local function options()
   vim.opt.listchars = "eol:↲,tab:» ,trail:·,extends:<,precedes:>,conceal:┊,nbsp:␣"
   vim.opt.grepprg = "rg --vimgrep --smart-case --follow"
   vim.opt.background = "dark"
-  -- vim.opt.termguicolors = true
   vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
 
   vim.opt.shortmess:append("c")
